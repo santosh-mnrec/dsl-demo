@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WKhKdDPkqhVRgIoiR0lBngTuNFF245FigSfn36h9Y+bGj3yLGRPZzeZD5b18k550LD3j4ihklXQl0jubGNkGgQ==",
+  "success": true,
+  "projectFilePath": "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sansi\\.nuget\\packages\\antlr4.runtime.standard\\4.13.0\\antlr4.runtime.standard.4.13.0.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

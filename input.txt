@@ -1,0 +1,10 @@
+Defect: "Blade defect" at SITE site , Position POS {
+    Type: AnotherType
+    Severity: Low
+    Actions: None
+    Comment: "This is another defect"
+    Reporter: "Santosh Singh"
+    Date: 23-SEP-2013
+    Time: 13:00
+    Details: "Detailed information about the turbine issues"
+}
