@@ -13,7 +13,7 @@ namespace Orsted.WindTurbine.DSL
             var parserHelper = new TurbineParserHelper();
             var turbine = parserHelper.ParseTurbine(turbineInput);
 
-            TurbineToJsonVisitor visitor = new();
+            TurbineVisitor visitor = new();
             var parsedTurbine = visitor.Visit(turbine);
 
             string json = JsonConvert.SerializeObject(parsedTurbine, Formatting.Indented);
