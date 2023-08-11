@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\temp\\codeguru\\MyNuGetPackage\\Package\\": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://dongenergy-p.pkgs.visualstudio.com/d4b93b06-7bfc-4ef0-97c0-52543d16b8b0/_packaging/aim-tools%40Local/nuget/v3/index.json": {}
         },
@@ -70,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

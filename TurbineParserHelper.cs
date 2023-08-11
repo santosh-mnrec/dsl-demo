@@ -1,17 +1,32 @@
-
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using Newtonsoft.Json.Linq;
 
-public class TurbineParserHelper
+namespace Orsted.WindTurbine.DSL
 {
-    public IParseTree ParseTurbine(string input)
+    public class TurbineParserHelper
     {
-        AntlrInputStream inputStream = new AntlrInputStream(input);
-        TurbineLexer lexer = new TurbineLexer(inputStream);
-        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
-        TurbineParser parser = new TurbineParser(commonTokenStream);
-        return parser.turbine();
+        public IParseTree ParseTurbine(string input)
+        {
+            AntlrInputStream inputStream = new AntlrInputStream(input);
+            TurbineLexer lexer = new TurbineLexer(inputStream);
+            CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+            TurbineParser parser = new TurbineParser(commonTokenStream);
+            return parser.turbine();
 
+
+        }
+        public JObject ConvertToJSON(string input)
+        {
+            var inputStream = new AntlrInputStream(input);
+            var lexer = new TurbineLexer(inputStream);
+            var tokenStream = new CommonTokenStream(lexer);
+            var parser = new TurbineParser(tokenStream);
+
+            var tree = parser.turbine();
+            var visitor = new TurbineVisitor();
+            return visitor.Visit(tree);
+        }
 
     }
 }

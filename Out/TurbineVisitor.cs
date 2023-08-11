@@ -38,11 +38,35 @@ public interface ITurbineVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTurbine([NotNull] TurbineParser.TurbineContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.defect"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.section"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitDefect([NotNull] TurbineParser.DefectContext context);
+	Result VisitSection([NotNull] TurbineParser.SectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDefectSection([NotNull] TurbineParser.DefectSectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectDescription"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDefectDescription([NotNull] TurbineParser.DefectDescriptionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectProperties"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDefectProperties([NotNull] TurbineParser.DefectPropertiesContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectProperty"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDefectProperty([NotNull] TurbineParser.DefectPropertyContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TurbineParser.defectType"/>.
 	/// </summary>
@@ -80,11 +104,11 @@ public interface ITurbineVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitSite([NotNull] TurbineParser.SiteContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.postition"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.position"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitPostition([NotNull] TurbineParser.PostitionContext context);
+	Result VisitPosition([NotNull] TurbineParser.PositionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TurbineParser.timezone"/>.
 	/// </summary>
@@ -92,21 +116,33 @@ public interface ITurbineVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTimezone([NotNull] TurbineParser.TimezoneContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.reporter"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.reporterSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitReporter([NotNull] TurbineParser.ReporterContext context);
+	Result VisitReporterSection([NotNull] TurbineParser.ReporterSectionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.details"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitDetails([NotNull] TurbineParser.DetailsContext context);
+	Result VisitDetailsSection([NotNull] TurbineParser.DetailsSectionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.summary"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.summarySection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitSummary([NotNull] TurbineParser.SummaryContext context);
+	Result VisitSummarySection([NotNull] TurbineParser.SummarySectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.keyValueSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitKeyValueSection([NotNull] TurbineParser.KeyValueSectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.keyValueProperty"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitKeyValueProperty([NotNull] TurbineParser.KeyValuePropertyContext context);
 }

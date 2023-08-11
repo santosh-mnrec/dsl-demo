@@ -1,152 +1,139 @@
 using System;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Misc;
-using System;
 using System.Collections.Generic;
+using Antlr4.Runtime.Misc;
+using Newtonsoft.Json.Linq;
 
-// Define the classes representing the elements of the grammar
-
-
-public class Turbine
+public class TurbineVisitor : TurbineBaseVisitor<JObject>
 {
-    public List<Defect> Defects { get; set; }
-    public Reporter Reporter { get; set; }
-    public Details Details { get; set; }
-    public Summary Summary { get; set; }
-}
-
-public class Defect
-{
-    public string Text { get; set; }
-    public string Site { get; set; }
-    public string Postition { get; set; }
-    public string Location { get; set; }
-    public string DefectType { get; set; }
-    public string Severity { get; set; }
-    public string Actions { get; set; }
-    public string Comment { get; set; }
-}
-
-public class Reporter
-{
-    public string Name { get; set; }
-    public DateTime? Date { get; set; }
-    public TimeSpan? Time { get; set; }
-}
-
-public class Details
-{
-    public string Text { get; set; }
-}
-
-public class Summary
-{
-    public string Text { get; set; }
-}
-
-public class TurbineVisitor : TurbineBaseVisitor<Turbine>
-{
-      Turbine turbine = new Turbine();
-    public override Turbine VisitTurbine([NotNull] TurbineParser.TurbineContext context)
+    public override JObject VisitTurbine(TurbineParser.TurbineContext context)
     {
-      
+        JObject jsonObject = new JObject();
 
-        // Visit and construct defects
-        turbine.Defects = new List<Defect>();
-        foreach (var defectContext in context.defect())
+        foreach (var sectionContext in context.section())
         {
-           VisitDefect(defectContext);
-            
+            var sectionObject = Visit(sectionContext);
+            jsonObject.Merge(sectionObject);
         }
 
-        // Visit and construct reporter if available
-        if (context.reporter() != null)
+        return jsonObject;
+    }
+    public override JObject VisitSite(TurbineParser.SiteContext context)
+    {
+        string site = context.TEXT().ToString();
+        string siteNumber = context.NUMBER()?.ToString();
+
+        JObject siteObject = new JObject { { "site", site } };
+
+        if (!string.IsNullOrEmpty(siteNumber))
         {
-           VisitReporter(context.reporter());
+            siteObject.Add("siteNumber", siteNumber);
         }
 
-        // Visit and construct details if available
-        if (context.details() != null)
-        {
-            VisitDetails(context.details());
-        }
-
-        // Visit and construct summary if available
-        if (context.summary() != null)
-        {
-            VisitSummary(context.summary());
-        }
-
-        return turbine;
+        return siteObject;
     }
 
-    public override Turbine VisitDefect([NotNull] TurbineParser.DefectContext context)
+    public override JObject VisitLocation(TurbineParser.LocationContext context)
     {
-        Defect defect = new Defect();
-        defect.Text = context.TEXT().ToString();
-        defect.Site = context.site(0).ToString();
-        defect.Postition = context.postition().TEXT().ToString();
+        string location = context.GetText();
+        return new JObject { { "location", location } };
+    }
+    public override JObject VisitDefectSection(TurbineParser.DefectSectionContext context)
+    {
+        JObject defectObject = new();
+        string defectDescription = context.defectDescription()
+                                          .TEXT()
+                                          .ToString();
+        defectObject["defectDescription"] = defectDescription;
 
-        // Visit and construct optional elements
-        if (context.location() != null)
+        defectObject["site"] = Visit(context.site(0));
+        defectObject["position"] = Visit(context.position());
+
+        defectObject["location"] = Visit(context.location());
+
+
+
+
+        foreach (var defectPropertyContext in context.defectProperties().defectProperty())
         {
-            defect.Location = context.location().GetText();
-        }
-        if (context.defectType() != null)
-        {
-            defect.DefectType = context.defectType().GetText();
-        }
-        if (context.severity() != null)
-        {
-            defect.Severity = context.severity().GetText();
-        }
-        if (context.actions() != null)
-        {
-            defect.Actions = context.actions().TEXT().ToString();
-        }
-        if (context.comment() != null)
-        {
-            defect.Comment = context.comment().STRING().ToString();
+            var propertyObject = Visit(defectPropertyContext);
+            defectObject.Merge(propertyObject);
         }
 
-        turbine.Defects.Add(defect);
-        return turbine;
+        return new JObject { { "Defect", defectObject } };
     }
 
-    public override Turbine VisitReporter([NotNull] TurbineParser.ReporterContext context)
+    public override JObject VisitDefectType(TurbineParser.DefectTypeContext context)
     {
-        Reporter reporter = new Reporter();
-        reporter.Name = context.STRING().ToString();
-
-        // // Visit and construct optional elements
-        // if (context.DATE() != null)
-        // {
-        //     string dateStr = context.DATE().ToString();
-        //     reporter.Date = DateTime.ParseExact(dateStr, "MM-dd-yyyy", null);
-        // }
-        // if (context.TIME() != null)
-        // {
-        //     string timeStr = context.TIME().ToString();
-        //     reporter.Time = TimeSpan.ParseExact(timeStr, "hh\\:mm", null);
-        // }
-
-        turbine.Reporter=reporter;
-        return turbine;
+        return new JObject { { "type", context.TEXT().ToString() } };
     }
 
-    public override Turbine VisitDetails([NotNull] TurbineParser.DetailsContext context)
+    public override JObject VisitSeverity(TurbineParser.SeverityContext context)
     {
-        Details details = new Details();
-        details.Text = context.STRING().ToString();
-       turbine.Details=details;
-       return turbine;
+        return new JObject { { "severity", context.TEXT().ToString() } };
     }
 
-    public override Turbine VisitSummary([NotNull] TurbineParser.SummaryContext context)
+    public override JObject VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
     {
-        Summary summary = new Summary();
-        summary.Text = context.STRING().ToString();
-        turbine.Summary=summary;
-        return turbine;
+        string key = context.TEXT()[0].GetText().ToString();
+        string value = context.TEXT()[0].GetText().ToString();
+
+        return new JObject { { key, value } };
     }
+    public override JObject VisitKeyValueSection(TurbineParser.KeyValueSectionContext context)
+    {
+        JObject keyValueObject = new JObject();
+
+        foreach (var keyValuePropertyContext in context.keyValueProperty())
+        {
+            var propertyObject = Visit(keyValuePropertyContext);
+            keyValueObject.Merge(propertyObject);
+        }
+
+        JObject additionalDataObject = new JObject { { "Additional Data", keyValueObject } };
+        return additionalDataObject;
+    }
+
+    public override JObject VisitActions(TurbineParser.ActionsContext context)
+    {
+        return new JObject { { "actions", context.TEXT().ToString() } };
+    }
+
+    public override JObject VisitComment(TurbineParser.CommentContext context)
+    {
+        return new JObject { { "comment", context.STRING().ToString() } };
+    }
+    public override JObject VisitSummarySection(TurbineParser.SummarySectionContext context)
+    {
+        string summary = context.STRING().ToString();
+        return new JObject { { "Summary", summary } };
+    }
+
+    public override JObject VisitReporterSection(TurbineParser.ReporterSectionContext context)
+    {
+        string reporter = context.STRING().ToString();
+        string date = context.DATE()?.ToString();
+        string time = context.TIME()?.ToString();
+
+        JObject reporterObject = new JObject
+        {
+            { "reportedBy", reporter }
+        };
+
+        if (!string.IsNullOrEmpty(date))
+        {
+            reporterObject.Add("date", date);
+        }
+
+        if (!string.IsNullOrEmpty(time))
+        {
+            reporterObject.Add("time", time);
+        }
+
+        return new JObject { { "Reporter", reporterObject } };
+    }
+
+
+
+
+
 }

@@ -8,7 +8,7 @@ namespace Orsted.WindTurbine.DSL
     {
         public static void Main(string[] args)
         {
-            string turbineInput = File.ReadAllText("input.txt");
+            string turbineInput = File.ReadAllText("example2.txt");
 
             var parserHelper = new TurbineParserHelper();
             var turbine = parserHelper.ParseTurbine(turbineInput);
@@ -16,8 +16,8 @@ namespace Orsted.WindTurbine.DSL
             TurbineVisitor visitor = new();
             var parsedTurbine = visitor.Visit(turbine);
 
-            string json = JsonConvert.SerializeObject(parsedTurbine, Formatting.Indented);
-            Console.WriteLine(json);
+           var data=parserHelper.ConvertToJSON(turbineInput);
+           System.Console.WriteLine(data);
         }
     }
 }
