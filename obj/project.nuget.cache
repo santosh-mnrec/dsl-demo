@@ -1,11 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "Wby9vIO4lGpepOn05hNu4VlHbPyDF6rxkVTzSi+LsNMWyR6b6vZ69izTghtg9fyyJDH8swQPRKOwtA3MMa0VNA==",
+  "dgSpecHash": "duVxnHtHOCm7cl7z7FrA45pe0fpDujRUzgPj67b9DbRMDgU6+SJWiUWKmVRzAIeQsxOFHNcvrPSwb780neWWtw==",
   "success": true,
   "projectFilePath": "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sansi\\.nuget\\packages\\antlr4.runtime.standard\\4.13.0\\antlr4.runtime.standard.4.13.0.nupkg.sha512",
-    "C:\\Users\\sansi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\sansi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\sansi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
   ],
   "logs": []
 }

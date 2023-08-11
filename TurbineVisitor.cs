@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using Antlr4.Runtime.Misc;
 using Newtonsoft.Json.Linq;
 
 public class TurbineVisitor : TurbineBaseVisitor<JObject>
 {
     public override JObject VisitTurbine(TurbineParser.TurbineContext context)
     {
-        JObject jsonObject = new JObject();
+        JObject jsonObject = new();
 
         foreach (var sectionContext in context.section())
         {

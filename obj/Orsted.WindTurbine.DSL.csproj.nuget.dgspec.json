@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\temp\\codeguru\\MyNuGetPackage\\Package\\": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://dongenergy-p.pkgs.visualstudio.com/d4b93b06-7bfc-4ef0-97c0-52543d16b8b0/_packaging/aim-tools%40Local/nuget/v3/index.json": {}
         },
@@ -50,9 +49,17 @@
               "target": "Package",
               "version": "[4.13.0, )"
             },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
