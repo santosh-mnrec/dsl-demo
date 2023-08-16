@@ -1,6 +1,7 @@
 grammar Turbine;
 
-turbine: section (STATEMENT_SEP section)* EOF;
+turbine: section (STATEMENT_SEP section)* ;
+
 section:
     defectSection 
     | reporterSection
