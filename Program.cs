@@ -38,8 +38,7 @@ app.MapPost("/convert", async context =>
 
     var data = parserHelper.ConvertToJSON(turbineInput); // Assuming ConvertToJSON takes a parsed turbine object
     
-    Console.WriteLine(data);
-
+    
     context.Response.ContentType = "application/json";
     await context.Response.WriteAsync(data.ToString());
 })

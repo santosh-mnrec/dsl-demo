@@ -1,5 +1,6 @@
 using Antlr4.Runtime.Misc;
 using Newtonsoft.Json.Linq;
+using Orsted.WindTurbine.DSL.Extensions;
 
 public class TurbineVisitor : TurbineBaseVisitor<JObject>
 {
@@ -17,8 +18,8 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     }
     public override JObject VisitSite(TurbineParser.SiteContext context)
     {
-        string site = context.TEXT().ToString();
-        string siteNumber = context.NUMBER()?.ToString();
+        string site = context.TEXT().ToString().Clean();
+        string siteNumber = context.NUMBER()?.ToString().Clean();
 
         JObject siteObject = new JObject { { "site", site } };
 
@@ -32,7 +33,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
 
     public override JObject VisitLocation(TurbineParser.LocationContext context)
     {
-        string location = context.GetText();
+        string location = context.GetText().Clean();
         return new JObject { { "location", location } };
     }
     public override JObject VisitDefectSection(TurbineParser.DefectSectionContext context)
@@ -40,7 +41,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         JObject defectObject = new();
         string defectDescription = context.defectDescription()
                                           .TEXT()
-                                          .ToString();
+                                          .ToString().Clean();
         defectObject["defectDescription"] = defectDescription;
 
         defectObject["site"] = Visit(context.site(0));
@@ -73,6 +74,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     public override JObject VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
     {
         string key = context.TEXT()[0].GetText().ToString();
+        System.Console.WriteLine(key);
         string value = context.TEXT()[0].GetText().ToString();
 
         return new JObject { { key, value } };
@@ -98,19 +100,19 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
 
     public override JObject VisitComment(TurbineParser.CommentContext context)
     {
-        return new JObject { { "comment", context.STRING().ToString() } };
+        return new JObject { { "comment", context.STRING().ToString().Clean() } };
     }
     public override JObject VisitSummarySection(TurbineParser.SummarySectionContext context)
     {
         string summary = context.STRING().ToString();
-        return new JObject { { "Summary", summary } };
+        return new JObject { { "Summary", summary.Clean() } };
     }
 
     public override JObject VisitReporterSection(TurbineParser.ReporterSectionContext context)
     {
-        string reporter = context.STRING().ToString();
-        string date = context.DATE()?.ToString();
-        string time = context.TIME()?.ToString();
+        string reporter = context.STRING().ToString().Clean();
+        string date = context.DATE()?.ToString().Clean();
+        string time = context.TIME()?.ToString().Clean();
 
         JObject reporterObject = new JObject
         {
@@ -135,7 +137,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     {
         JObject rootObject = new JObject();
 
-        string name = context.NAME().GetText();
+        string name = context.NAME().GetText().Replace("--","");
         JArray nestedArray = new JArray();
 
         foreach (var nestedContext in context.nested())

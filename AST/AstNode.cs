@@ -1,88 +1,78 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Orsted.WindTurbine.DSL.AST
 {
-    
-    public class NestedNode : AstNode
-    {
-        public string NestedText { get; set; }
-        public List<AstNode> Content { get; set; }
-    }
 
     public class RootSectionNode : AstNode
     {
         public string Name { get; set; }
-        public List<AstNode> Nested { get; set; }
+        public List<NestedNode> Nested { get; set; }
     }
 
-    internal class PropertyNode : AstNode
+    public class NestedNode : AstNode
     {
-        public string Key { get; set; }
+     
+        public List<AstNode> Content { get; set; }
     }
 
-    public abstract class AstNode { }
-
-    public class TurbineNode : AstNode
-    {
-        public List<SectionNode> Sections { get; set; }
-        public RootSectionNode RootSectionNode { get; set; }
-    }
-
-    public abstract class SectionNode : AstNode { }
-
-    public class DefectSectionNode : SectionNode
-    {
-        public string DefectDescription { get; set; }
-        public SiteNode Site { get; set; }
-        public string Position { get; set; }
-        public LocationNode Location { get; set; }
-        public List<DefectPropertyNode> DefectProperties { get; set; }
-    }
-
-    public class SiteNode : AstNode
-    {
-        public string SiteName { get; set; }
-        public string SiteNumber { get; set; }
-    }
-
-    public class LocationNode : AstNode
-    {
-        public string LocationName { get; set; }
-    }
-
-    public class DefectPropertyNode : AstNode
-    {
-        public string PropertyType { get; set; }
-        public string PropertyValue { get; set; }
-    }
-
-    public class ReporterSectionNode : SectionNode
-    {
-        public string ReporterName { get; set; }
-        public string ReportDate { get; set; }
-        public string ReportTime { get; set; }
-    }
-
-    public class DetailsSectionNode : SectionNode
-    {
-        public string Details { get; set; }
-    }
-
-    public class SummarySectionNode : SectionNode
-    {
-        public string Summary { get; set; }
-    }
-
-    public class KeyValueSectionNode : SectionNode
-    {
-        public List<KeyValuePropertyNode> KeyValueProperties { get; set; }
-    }
-
-    public class KeyValuePropertyNode : AstNode
+    public class KeyValueNode : AstNode
     {
         public string Key { get; set; }
         public string Value { get; set; }
     }
+
+    public abstract class AstNode
+    {
+
+    }
+
+    public class Turbine : AstNode
+    {
+        
+
+        public List<Section> Sections { get; set; }
+
+    }
+
+    public class Section:AstNode
+    {
+
+        public Defect Defect { get; set; }
+        public Reporter Reporter { get; set; }
+
+        public Dictionary<string, string> KeyValuePairs { get;  set; }
+        public List<RootSectionNode> RootSectionNodes{get;set;}
+        public string Details { get;  set; }
+        public string Summary { get;  set; }
+    }
+
+    public class Reporter : AstNode
+    {
+        public string reportedBy { get; set; }
+        public string date { get; set; }
+        public string time { get; set; }
+
+    }
+
+    public class Defect : AstNode
+    {
+        public Location location{get;set;}
+
+        public string defectDescription { get; set; }
+        public Site site { get; set; }
+        
+    }
+    public class Site
+    {
+        public string site { get; set; }
+        public string siteNumber { get; set; }
+    }
+    public class Location
+    {
+        public string location { get; set; }
+    }
+
 }
