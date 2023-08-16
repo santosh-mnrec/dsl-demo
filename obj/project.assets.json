@@ -567,8 +567,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dongenergy-p.pkgs.visualstudio.com/d4b93b06-7bfc-4ef0-97c0-52543d16b8b0/_packaging/aim-tools%40Local/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {

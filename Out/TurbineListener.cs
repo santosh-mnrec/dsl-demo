@@ -51,6 +51,36 @@ public interface ITurbineListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitSection([NotNull] TurbineParser.SectionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.rootSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRootSection([NotNull] TurbineParser.RootSectionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.rootSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRootSection([NotNull] TurbineParser.RootSectionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.nested"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNested([NotNull] TurbineParser.NestedContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.nested"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNested([NotNull] TurbineParser.NestedContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterKey([NotNull] TurbineParser.KeyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitKey([NotNull] TurbineParser.KeyContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.defectSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

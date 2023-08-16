@@ -44,6 +44,24 @@ public interface ITurbineVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitSection([NotNull] TurbineParser.SectionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.rootSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRootSection([NotNull] TurbineParser.RootSectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.nested"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNested([NotNull] TurbineParser.NestedContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitKey([NotNull] TurbineParser.KeyContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="TurbineParser.defectSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

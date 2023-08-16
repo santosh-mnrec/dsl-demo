@@ -60,6 +60,42 @@ public partial class TurbineBaseListener : ITurbineListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitSection([NotNull] TurbineParser.SectionContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.rootSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRootSection([NotNull] TurbineParser.RootSectionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.rootSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRootSection([NotNull] TurbineParser.RootSectionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.nested"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNested([NotNull] TurbineParser.NestedContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.nested"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNested([NotNull] TurbineParser.NestedContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterKey([NotNull] TurbineParser.KeyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitKey([NotNull] TurbineParser.KeyContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.defectSection"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

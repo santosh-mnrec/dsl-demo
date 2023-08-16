@@ -1,22 +1,25 @@
 grammar Turbine;
 
 turbine: section (STATEMENT_SEP section)* EOF;
+
 section:
     defectSection 
     | reporterSection
     | detailsSection 
     | summarySection
     | keyValueSection
-    | rootSection;
+    |rootSection;
+
 
 rootSection: NAME (nested)* ;
 
 nested: NESTED (key | keyValueSection)*;
 key: TEXT '=' TEXT;
 
-NESTED: '---';
-SEP: '--';
-NAME: '--' TEXT;
+keyValueSection: SEP SEP key;
+NESTED: '++';
+SEP: '+';
+NAME: '+' TEXT;
 
 defectSection: 
     'There is a' defectDescription 'found at' site 'and' position location (AT_SITE site)? defectProperties;
@@ -40,8 +43,8 @@ reporterSection: 'reported by:' STRING ('date:' DATE)? ('time:' TIME)?;
 detailsSection: 'Details:' STRING;
 summarySection: 'Summary:' STRING;
 
-keyValueSection: keyValueProperty+;
-keyValueProperty: TEXT '=' TEXT;
+//keyValueSection: keyValueProperty+;
+//keyValueProperty: TEXT '=' TEXT;
 
 DATE: NUMBER NUMBER SEPARATOR MONTH SEPARATOR NUMBER;
 TIME: NUMBER NUMBER COLON NUMBER NUMBER;
@@ -49,7 +52,7 @@ NUMBER: [0-9]+;
 MONTH: 'JAN' | 'FEB' | 'MAR' | 'APR' | 'MAY' | 'JUN' | 'JUL' | 'AUG' | 'SEP' | 'OCT' | 'NOV' | 'DEC';
 STRING: '"' (ESC | SAFECODEPOINT)* '"';
 SEPARATOR: '-';
-STATEMENT_SEP: ';;;';
+STATEMENT_SEP:'#';
 TEXT: [a-zA-Z]+;
 COLON: ':';
 

@@ -1,3 +1,4 @@
+using Antlr4.Runtime.Misc;
 using Newtonsoft.Json.Linq;
 
 public class TurbineVisitor : TurbineBaseVisitor<JObject>
@@ -129,6 +130,46 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         return new JObject { { "Reporter", reporterObject } };
     }
 
+
+     public override JObject VisitRootSection(TurbineParser.RootSectionContext context)
+    {
+        JObject rootObject = new JObject();
+
+        string name = context.NAME().GetText();
+        JArray nestedArray = new JArray();
+
+        foreach (var nestedContext in context.nested())
+        {
+            JObject nestedObject = VisitNested(nestedContext);
+            nestedArray.Add(nestedObject);
+        }
+
+        rootObject[name] = nestedArray;
+
+        return rootObject;
+    }
+
+    public override JObject VisitNested(TurbineParser.NestedContext context)
+    {
+        JObject nestedObject = new JObject();
+
+        foreach (var keyContext in context.key())
+        {
+            string key = keyContext.TEXT(0).GetText();
+            string value = keyContext.TEXT(1).GetText();
+            nestedObject[key] = value;
+        }
+
+        foreach (var keyValueSectionContext in context.keyValueSection())
+        {
+            JObject keyValueSectionObject = VisitKeyValueSection(keyValueSectionContext);
+            nestedObject.Merge(keyValueSectionObject);
+        }
+
+        return nestedObject;
+    }
+
+ 
 
 
 
