@@ -7,7 +7,7 @@ public class TurbineNode : AstNode
 
 public class SectionNode : AstNode
 {
-    // Common properties or methods for all sections
+
 }
 
 public class RootSectionNode : SectionNode
@@ -18,7 +18,7 @@ public class RootSectionNode : SectionNode
 
 public class NestedNode : SectionNode
 {
-    public List<AstNode> Properties { get; set; }
+   public AstNode Properties { get; set; }
 }
 
 public class KeyNode : AstNode

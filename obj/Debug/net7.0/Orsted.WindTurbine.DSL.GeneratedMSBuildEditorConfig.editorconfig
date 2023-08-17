@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Orsted.WindTurbine.DSL
-build_property.ProjectDir = C:\temp\Orsted.WindTurbine.DSL\
+build_property.ProjectDir = c:\temp\Orsted.WindTurbine.DSL\

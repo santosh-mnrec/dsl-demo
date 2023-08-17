@@ -109,15 +109,11 @@ namespace Orsted.WindTurbine.DSL
             var nestedNode = new NestedNode
             {
                // Nested = context.NESTED().GetText(),
-                Properties = nestedContent
+                Properties = nestedContent.FirstOrDefault()
             };
 
             return nestedNode;
         }
-
-
-
-        // Implement other Visit methods...
 
         public override AstNode VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
         {
