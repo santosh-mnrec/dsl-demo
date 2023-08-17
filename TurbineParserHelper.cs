@@ -2,7 +2,6 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Orsted.WindTurbine.DSL.AST;
 
 namespace Orsted.WindTurbine.DSL
 {
@@ -30,6 +29,8 @@ namespace Orsted.WindTurbine.DSL
             var astVisitor = new TurbineASTVisitor();
             AstNode ast = astVisitor.VisitTurbine(parseTree);
             System.Console.WriteLine(JsonConvert.SerializeObject(ast,Formatting.Indented));
+
+            File.WriteAllText(@"C:\temp\a.txt",JsonConvert.SerializeObject(ast,Formatting.Indented));
 
             return visitor.Visit(parseTree);
         }

@@ -1,8 +1,3 @@
-using Antlr4.Runtime.Misc;
-using Newtonsoft.Json.Linq;
-using Orsted.WindTurbine.DSL.AST;
-using System.Collections.Generic;
-
 namespace Orsted.WindTurbine.DSL
 {
     public class TurbineASTVisitor : TurbineBaseVisitor<AstNode>
@@ -11,10 +6,10 @@ namespace Orsted.WindTurbine.DSL
         {
             var sections = context.section()
                 .Select(VisitSection)
-                .OfType<Section>()
+                .OfType<SectionNode>()
                 .ToList();
 
-            var turbineNode = new Turbine
+            var turbineNode = new TurbineNode
             {
                 Sections = sections
             };
@@ -24,40 +19,38 @@ namespace Orsted.WindTurbine.DSL
 
         public override AstNode VisitSection(TurbineParser.SectionContext context)
         {
-            var section = new Section();
-
             if (context.defectSection() != null)
             {
-                section.Defect = VisitDefectSection(context.defectSection()) as Defect;
+                return VisitDefectSection(context.defectSection());
             }
             else if (context.reporterSection() != null)
             {
-                section.Reporter = VisitReporterSection(context.reporterSection()) as Reporter;
+                return VisitReporterSection(context.reporterSection());
             }
             else if (context.detailsSection() != null)
             {
-                section.Details = context.detailsSection().STRING().GetText();
+                return new DetailsSectionNode { Details = context.detailsSection().STRING().GetText() };
             }
             else if (context.summarySection() != null)
             {
-                section.Summary = context.summarySection().STRING().GetText();
+                return new SummarySectionNode { Summary = context.summarySection().STRING().GetText() };
             }
             else if (context.keyValueSection() != null)
             {
-                section.KeyValuePairs = new Dictionary<string, string>();
-                foreach (var keyValueProperty in context.keyValueSection().keyValueProperty())
-                {
-                    section.KeyValuePairs[keyValueProperty.TEXT(0).GetText()] = keyValueProperty.TEXT(1).GetText();
-                }
+                var properties = context.keyValueSection().keyValueProperty()
+                    .Select(VisitKeyValueProperty)
+                    .OfType<KeyValuePropertyNode>()
+                    .ToList();
+
+                return new KeyValueSectionNode { Properties = properties };
             }
             else if (context.rootSection() != null)
             {
-                section.RootSectionNodes = new List<RootSectionNode> { VisitRootSection(context.rootSection()) as RootSectionNode };
+                return VisitRootSection(context.rootSection());
             }
 
-            return section;
+            return null;
         }
-
         public override AstNode VisitRootSection(TurbineParser.RootSectionContext context)
         {
             string name = context.NAME().GetText().Replace("--", "");
@@ -70,37 +63,53 @@ namespace Orsted.WindTurbine.DSL
             var rootSectionNode = new RootSectionNode
             {
                 Name = name,
-                Nested = nestedNodes
+                NestedSections = nestedNodes
             };
 
             return rootSectionNode;
         }
+
+        public override AstNode VisitKeyValueSection(TurbineParser.KeyValueSectionContext context)
+        {
+            var properties = context.keyValueProperty()
+                .Select(VisitKeyValueProperty)
+                .OfType<KeyValuePropertyNode>()
+                .ToList();
+
+            var keyValueSectionNode = new KeyValueSectionNode
+            {
+                Properties = properties
+            };
+
+            return keyValueSectionNode;
+        }
+
         public override AstNode VisitNested(TurbineParser.NestedContext context)
         {
-            var keyValueNodes = new List<KeyValueNode>();
+            var nestedContent = new List<AstNode>();
 
             foreach (var keyContext in context.key())
             {
-                var keyValueNode = new KeyValueNode
+                var keyNode = new KeyNode
                 {
                     Key = keyContext.TEXT(0).GetText(),
                     Value = keyContext.TEXT(1).GetText()
                 };
-                keyValueNodes.Add(keyValueNode);
+                nestedContent.Add(keyNode);
             }
 
             foreach (var keyValueSectionContext in context.keyValueSection())
             {
-                var keyValueNode = VisitKeyValueSection(keyValueSectionContext) as KeyValueNode;
-                if (keyValueNode != null)
+                if (VisitKeyValueSection(keyValueSectionContext) is KeyValueSectionNode keyValueSectionNode)
                 {
-                    keyValueNodes.Add(keyValueNode);
+                    nestedContent.Add(keyValueSectionNode);
                 }
             }
 
             var nestedNode = new NestedNode
             {
-                Content = keyValueNodes.Cast<AstNode>().ToList()
+               // Nested = context.NESTED().GetText(),
+                Properties = nestedContent
             };
 
             return nestedNode;
@@ -108,81 +117,52 @@ namespace Orsted.WindTurbine.DSL
 
 
 
-
-
-        public override AstNode VisitKeyValueSection(TurbineParser.KeyValueSectionContext context)
-        {
-            var keyValueNodes = context.keyValueProperty()
-                .Select(keyValuePropertyContext => VisitKeyValueProperty(keyValuePropertyContext) as KeyValueNode)
-                .ToList();
-
-            var keyValueSectionNode = new KeyValueSectionNode
-            {
-                KeyValueNodes = keyValueNodes
-            };
-
-            return keyValueSectionNode;
-        }
+        // Implement other Visit methods...
 
         public override AstNode VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
         {
-            var keyValueNode = new KeyValueNode
+            return new KeyValuePropertyNode
             {
                 Key = context.TEXT(0).GetText(),
                 Value = context.TEXT(1).GetText()
             };
-
-            return keyValueNode;
         }
 
         public override AstNode VisitDefectSection(TurbineParser.DefectSectionContext context)
         {
-            var defect = new Defect
+            var defect = new DefectSectionNode
             {
-                defectDescription = context.defectDescription().GetText(),
-                site = new Site
-                {
-                    site = context.site(0).GetText(),
-                    siteNumber = context.site(1)?.GetText()
-                },
-                location = new Location
-                {
-                    location = context.location().GetText()
-                }
-                // Add other properties here
+                Description = context.defectDescription().GetText(),
+                Site = context.site(0).GetText(),
+                AtSite = context.site(0).GetText(),
+                Location = context.location().GetText(),
+                Properties = context.defectProperties().defectProperty()
+                    .Select(VisitDefectProperty)
+                    .OfType<DefectPropertyNode>()
+                    .ToList()
             };
 
             return defect;
         }
-        public override AstNode VisitKey(TurbineParser.KeyContext context)
-        {
-            var keyValueNode = new KeyValueNode
-            {
-                Key = context.TEXT(0).GetText(),
-                Value = context.TEXT(1).GetText()
-            };
 
-            return keyValueNode;
+        public override AstNode VisitDefectType(TurbineParser.DefectTypeContext context)
+        {
+            return new DefectTypeNode { DefectType = context.TEXT().GetText() };
         }
 
-
-        public override AstNode VisitReporterSection(TurbineParser.ReporterSectionContext context)
+        public override AstNode VisitSeverity(TurbineParser.SeverityContext context)
         {
-            var reporter = new Reporter
-            {
-                reportedBy = context.STRING().GetText(),
-                date = context.DATE()?.GetText(),
-                time = context.TIME()?.GetText()
-            };
-
-            return reporter;
+            return new SeverityNode { Severity = context.TEXT().GetText() };
         }
 
-        // Other methods...
-    }
+        public override AstNode VisitActions(TurbineParser.ActionsContext context)
+        {
+            return new ActionsNode { Actions = context.TEXT().GetText() };
+        }
 
-    internal class KeyValueSectionNode : AstNode
-    {
-        public List<KeyValueNode> KeyValueNodes { get; set; }
+        public override AstNode VisitComment(TurbineParser.CommentContext context)
+        {
+            return new CommentNode { Comment = context.STRING().GetText() };
+        }
     }
 }

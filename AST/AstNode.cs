@@ -1,78 +1,87 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+public abstract class AstNode { }
 
-namespace Orsted.WindTurbine.DSL.AST
+public class TurbineNode : AstNode
 {
+    public List<SectionNode> Sections { get; set; }
+}
 
-    public class RootSectionNode : AstNode
-    {
-        public string Name { get; set; }
-        public List<NestedNode> Nested { get; set; }
-    }
+public class SectionNode : AstNode
+{
+    // Common properties or methods for all sections
+}
 
-    public class NestedNode : AstNode
-    {
-     
-        public List<AstNode> Content { get; set; }
-    }
+public class RootSectionNode : SectionNode
+{
+    public string Name { get; set; }
+    public List<NestedNode> NestedSections { get; set; }
+}
 
-    public class KeyValueNode : AstNode
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
-    }
+public class NestedNode : SectionNode
+{
+    public List<AstNode> Properties { get; set; }
+}
 
-    public abstract class AstNode
-    {
+public class KeyNode : AstNode
+{
+    public string Key { get; set; }
+    public string Value { get; set; }
+}
 
-    }
+public class DefectSectionNode : SectionNode
+{
+    public string Description { get; set; }
+    public string Site { get; set; }
+    public string Location { get; set; }
+    public string AtSite { get; set; }
+    public List<DefectPropertyNode> Properties { get; set; }
+}
 
-    public class Turbine : AstNode
-    {
-        
+public abstract class DefectPropertyNode : AstNode { }
 
-        public List<Section> Sections { get; set; }
+public class DefectTypeNode : DefectPropertyNode
+{
+    public string DefectType { get; set; }
+}
 
-    }
+public class SeverityNode : DefectPropertyNode
+{
+    public string Severity { get; set; }
+}
 
-    public class Section:AstNode
-    {
+public class ActionsNode : DefectPropertyNode
+{
+    public string Actions { get; set; }
+}
 
-        public Defect Defect { get; set; }
-        public Reporter Reporter { get; set; }
+public class CommentNode : DefectPropertyNode
+{
+    public string Comment { get; set; }
+}
 
-        public Dictionary<string, string> KeyValuePairs { get;  set; }
-        public List<RootSectionNode> RootSectionNodes{get;set;}
-        public string Details { get;  set; }
-        public string Summary { get;  set; }
-    }
+public class ReporterSectionNode : SectionNode
+{
+    public string Reporter { get; set; }
+    public string Date { get; set; }
+    public string Time { get; set; }
+}
 
-    public class Reporter : AstNode
-    {
-        public string reportedBy { get; set; }
-        public string date { get; set; }
-        public string time { get; set; }
+public class DetailsSectionNode : SectionNode
+{
+    public string Details { get; set; }
+}
 
-    }
+public class SummarySectionNode : SectionNode
+{
+    public string Summary { get; set; }
+}
 
-    public class Defect : AstNode
-    {
-        public Location location{get;set;}
+public class KeyValueSectionNode : SectionNode
+{
+    public List<KeyValuePropertyNode> Properties { get; set; }
+}
 
-        public string defectDescription { get; set; }
-        public Site site { get; set; }
-        
-    }
-    public class Site
-    {
-        public string site { get; set; }
-        public string siteNumber { get; set; }
-    }
-    public class Location
-    {
-        public string location { get; set; }
-    }
-
+public class KeyValuePropertyNode : AstNode
+{
+    public string Key { get; set; }
+    public string Value { get; set; }
 }
