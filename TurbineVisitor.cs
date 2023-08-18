@@ -4,9 +4,38 @@ using Orsted.WindTurbine.DSL.Extensions;
 
 public class TurbineVisitor : TurbineBaseVisitor<JObject>
 {
+
+    public override JObject VisitDefectSection(TurbineParser.DefectSectionContext context)
+{
+    JObject defectObject = new JObject();
+
+    string defectDescription = context.defectDescription().STRING().ToString().Clean();
+    defectObject["defectDescription"] = defectDescription;
+
+    defectObject["site"] = Visit(context.siteDefect());
+    defectObject["position"] = Visit(context.positionDefect());
+    defectObject["location"] = Visit(context.locationDefect());
+
+    JArray detailsArray = new JArray();
+
+    foreach (var detailContext in context.detailsSection().detail())
+    {
+        var detailObject = Visit(detailContext);
+        detailsArray.Add(detailObject);
+    }
+
+    defectObject["details"] = detailsArray;
+
+    // Create a root object and add the defectObject to it
+    JObject rootObject = new JObject();
+    rootObject["defect"] = defectObject;
+
+    return rootObject;
+}
+
     public override JObject VisitTurbine(TurbineParser.TurbineContext context)
     {
-        JObject jsonObject = new();
+        JObject jsonObject = new JObject();
 
         foreach (var sectionContext in context.section())
         {
@@ -16,71 +45,39 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
 
         return jsonObject;
     }
-    public override JObject VisitSite(TurbineParser.SiteContext context)
+    public override JObject VisitSiteDefect(TurbineParser.SiteDefectContext context)
     {
         string site = context.TEXT().ToString().Clean();
-        string siteNumber = context.NUMBER()?.ToString().Clean();
 
         JObject siteObject = new JObject { { "site", site } };
 
-        if (!string.IsNullOrEmpty(siteNumber))
-        {
-            siteObject.Add("siteNumber", siteNumber);
-        }
 
         return siteObject;
     }
 
-    public override JObject VisitLocation(TurbineParser.LocationContext context)
+    public override JObject VisitPositionDefect(TurbineParser.PositionDefectContext context)
     {
-        string location = context.GetText().Clean();
-        return new JObject { { "location", location } };
+        return new JObject { { "position", context.TEXT().ToString() } };
     }
-    public override JObject VisitDefectSection(TurbineParser.DefectSectionContext context)
+public override JObject VisitLocationDefect(TurbineParser.LocationDefectContext context)
+{
+    string location = context.TEXT().ToString();
+    JObject locationObject = new JObject { { "text", new JValue(location) } };
+    return locationObject;
+}
+
+
+
+    public override JObject VisitDetail(TurbineParser.DetailContext context)
     {
-        JObject defectObject = new();
-        string defectDescription = context.defectDescription()
-                                          .TEXT()
-                                          .ToString().Clean();
-        defectObject["defectDescription"] = defectDescription;
+        string attributeName = context.GetChild(0).GetText();
+        string value = context.GetChild(1).GetText();
 
-        defectObject["site"] = Visit(context.site(0));
-        defectObject["position"] = Visit(context.position());
-
-        defectObject["location"] = Visit(context.location());
-
-
-
-
-        foreach (var defectPropertyContext in context.defectProperties().defectProperty())
-        {
-            var propertyObject = Visit(defectPropertyContext);
-            defectObject.Merge(propertyObject);
-        }
-
-        return new JObject { { "Defect", defectObject } };
-    }
-
-    public override JObject VisitDefectType(TurbineParser.DefectTypeContext context)
-    {
-        return new JObject { { "type", context.TEXT().ToString() } };
-    }
-
-    public override JObject VisitSeverity(TurbineParser.SeverityContext context)
-    {
-        return new JObject { { "severity", context.TEXT().ToString() } };
-    }
-
-    public override JObject VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
-    {
-        string key = context.TEXT()[0].GetText().ToString();
-        System.Console.WriteLine(key);
-        string value = context.TEXT()[0].GetText().ToString();
-
-        return new JObject { { key, value } };
+        return new JObject { { attributeName.ToLower(), value } };
     }
     public override JObject VisitKeyValueSection(TurbineParser.KeyValueSectionContext context)
     {
+        Console.WriteLine("ke");
         JObject keyValueObject = new JObject();
 
         foreach (var keyValuePropertyContext in context.keyValueProperty())
@@ -89,60 +86,25 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
             keyValueObject.Merge(propertyObject);
         }
 
-        JObject additionalDataObject = new JObject { { "Additional Data", keyValueObject } };
-        return additionalDataObject;
+        return keyValueObject;
     }
-
-    public override JObject VisitActions(TurbineParser.ActionsContext context)
+     public override JObject VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
     {
-        return new JObject { { "actions", context.TEXT().ToString() } };
+        string key = context.TEXT(0).ToString();
+        string value = context.TEXT(1).ToString();
+
+        return new JObject { { key, value } };
     }
-
-    public override JObject VisitComment(TurbineParser.CommentContext context)
-    {
-        return new JObject { { "comment", context.STRING().ToString().Clean() } };
-    }
-    public override JObject VisitSummarySection(TurbineParser.SummarySectionContext context)
-    {
-        string summary = context.STRING().ToString();
-        return new JObject { { "Summary", summary.Clean() } };
-    }
-
-    public override JObject VisitReporterSection(TurbineParser.ReporterSectionContext context)
-    {
-        string reporter = context.STRING().ToString().Clean();
-        string date = context.DATE()?.ToString().Clean();
-        string time = context.TIME()?.ToString().Clean();
-
-        JObject reporterObject = new JObject
-        {
-            { "reportedBy", reporter }
-        };
-
-        if (!string.IsNullOrEmpty(date))
-        {
-            reporterObject.Add("date", date);
-        }
-
-        if (!string.IsNullOrEmpty(time))
-        {
-            reporterObject.Add("time", time);
-        }
-
-        return new JObject { { "Reporter", reporterObject } };
-    }
-
-
-     public override JObject VisitRootSection(TurbineParser.RootSectionContext context)
+    public override JObject VisitObjectSections(TurbineParser.ObjectSectionsContext context)
     {
         JObject rootObject = new JObject();
 
-        string name = context.NAME().GetText().Replace("--","");
+        string name = context.NAME().GetText().Replace("--", "");
         JArray nestedArray = new JArray();
 
-        foreach (var nestedContext in context.nested())
+        foreach (var nestedContext in context.prop())
         {
-            JObject nestedObject = VisitNested(nestedContext);
+            JObject nestedObject = VisitProp(nestedContext);
             nestedArray.Add(nestedObject);
         }
 
@@ -151,7 +113,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         return rootObject;
     }
 
-    public override JObject VisitNested(TurbineParser.NestedContext context)
+    public override JObject VisitProp(TurbineParser.PropContext context)
     {
         JObject nestedObject = new JObject();
 
@@ -171,9 +133,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         return nestedObject;
     }
 
- 
+    // Implement other Visit methods for remaining grammar rules...
 
-
-
-
+    // Additional utility methods for cleaning and merging JSON objects if needed...
 }

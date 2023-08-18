@@ -26,12 +26,12 @@ namespace Orsted.WindTurbine.DSL
             var parseTree = parser.turbine();
 
             var visitor = new TurbineVisitor();
-            var astVisitor = new TurbineASTVisitor();
-            AstNode ast = astVisitor.VisitTurbine(parseTree);
-            System.Console.WriteLine(JsonConvert.SerializeObject(ast,Formatting.Indented));
+            // var astVisitor = new TurbineASTVisitor();
+            // AstNode ast = astVisitor.VisitTurbine(parseTree);
+            // System.Console.WriteLine(JsonConvert.SerializeObject(ast,Formatting.Indented));
 
-            File.WriteAllText(@"C:\temp\a.txt",JsonConvert.SerializeObject(ast,Formatting.Indented));
-
+            // File.WriteAllText(@"C:\temp\a.txt",JsonConvert.SerializeObject(ast,Formatting.Indented));
+            var x=visitor.Visit(parseTree);
             return visitor.Visit(parseTree);
         }
 

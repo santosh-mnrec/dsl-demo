@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj": {}
+    "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj": {}
   },
   "projects": {
-    "c:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj": {
+    "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
+        "projectUniqueName": "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
         "projectName": "Orsted.WindTurbine.DSL",
-        "projectPath": "c:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
+        "projectPath": "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
         "packagesPath": "C:\\Users\\sansi\\.nuget\\packages\\",
-        "outputPath": "c:\\temp\\Orsted.WindTurbine.DSL\\obj\\",
+        "outputPath": "C:\\temp\\Orsted.WindTurbine.DSL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -3,58 +3,54 @@ grammar Turbine;
 turbine: section (STATEMENT_SEP section)* ;
 
 section:
-    defectSection 
+    defectSection
     | reporterSection
     | detailsSection 
     | summarySection
     | keyValueSection
-    | rootSection;
+    | objectSections;
 
-rootSection: NAME (nested)* ;
+defectSection: 'CREATE DEFECT' defectDescription siteDefect positionDefect locationDefect detailsSection;
 
-nested: NESTED (key | keyValueSection)*;
-key: TEXT '=' TEXT;
+defectDescription: 'DESCRIPTION' STRING;
+siteDefect: 'SITE' TEXT;
+positionDefect: 'POSITION' TEXT;
+locationDefect: 'LOCATION' TEXT;
+detailsSection: 'DETAILS ARE' detail+;
 
-NESTED: '---';
-SEP: '--';
-NAME: '--' TEXT;
-
-defectSection: 
-    'There is a' defectDescription 'found at' site 'and' position location (AT_SITE site)? defectProperties;
-
-defectDescription: TEXT;
-defectProperties: (defectProperty | SEPARATOR)*;
-
-defectProperty: defectType | severity | actions | comment;
-
-defectType: 'type:' (TEXT | STRING);
-severity: 'severity:' (TEXT | STRING);
-actions: 'actions:' TEXT;
-comment: 'comment:' STRING;
-
-location: ('external' | 'internal');
-site: TEXT NUMBER;
-position: TEXT;
+detail: ('TYPE' TEXT) | ('SEVERITY' TEXT) | ('ACTIONS' TEXT) | ('COMMENT' STRING);
 timezone: ('UTC' | 'GMT' | 'EST' | 'PST');
 
 reporterSection: 'reported by:' STRING ('date:' DATE)? ('time:' TIME)?;
-detailsSection: 'Details:' STRING;
+
 summarySection: 'Summary:' STRING;
 
 keyValueSection: keyValueProperty+;
 keyValueProperty: TEXT '=' TEXT;
 
-DATE: NUMBER NUMBER SEPARATOR MONTH SEPARATOR NUMBER;
-TIME: NUMBER NUMBER COLON NUMBER NUMBER;
+objectSections: NAME (prop)* ;
+
+prop: MULTI_LEVEL (key | keyValueSection)*;
+key: TEXT '=' TEXT;
+
+CREATE: 'Create defect';
+FOUND: 'for site';
+AND: 'and';
+NAME: '--' TEXT;
+WHERE: 'where';
+WITH: 'details are';
+DATE: NUMBER '-' MONTH '-' NUMBER;
+TIME: NUMBER ':' NUMBER;
 NUMBER: [0-9]+;
 MONTH: 'JAN' | 'FEB' | 'MAR' | 'APR' | 'MAY' | 'JUN' | 'JUL' | 'AUG' | 'SEP' | 'OCT' | 'NOV' | 'DEC';
 STRING: '"' (ESC | SAFECODEPOINT)* '"';
 SEPARATOR: '-';
 STATEMENT_SEP: ';;;';
-TEXT: [a-zA-Z]+;
+TEXT: [a-zA-Z0-9]+;
 COLON: ':';
 
-AT_SITE: 'at site';
+MULTI_LEVEL: '---';
+SEP: '--';
 
 fragment ESC: '\\' (["\\/bfnrt] | UNICODE);
 fragment UNICODE: 'u' HEX HEX HEX HEX;

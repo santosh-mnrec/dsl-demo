@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qf+LueWm5jZdkO4OWobvfrFAD2x5Ir+3I495Cbm/Q0MSGRY7DstEff0NglM9t920hnhrvO93w0WlSxbiy7ntnw==",
+  "dgSpecHash": "voPxdZt8tCebYnnLyCl4rjBQglhfg1LxW/tbD2bB9BFl5jM2g3TMMYkk/zklcVQiAEhy15LctFUGyaRz0e0Mhw==",
   "success": true,
-  "projectFilePath": "c:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
+  "projectFilePath": "C:\\temp\\Orsted.WindTurbine.DSL\\Orsted.WindTurbine.DSL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sansi\\.nuget\\packages\\antlr4.runtime.standard\\4.13.0\\antlr4.runtime.standard.4.13.0.nupkg.sha512",
     "C:\\Users\\sansi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",

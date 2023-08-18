@@ -60,42 +60,6 @@ public partial class TurbineBaseListener : ITurbineListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitSection([NotNull] TurbineParser.SectionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.rootSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRootSection([NotNull] TurbineParser.RootSectionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.rootSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRootSection([NotNull] TurbineParser.RootSectionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.nested"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNested([NotNull] TurbineParser.NestedContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.nested"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNested([NotNull] TurbineParser.NestedContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.key"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterKey([NotNull] TurbineParser.KeyContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.key"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitKey([NotNull] TurbineParser.KeyContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.defectSection"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -120,113 +84,65 @@ public partial class TurbineBaseListener : ITurbineListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDefectDescription([NotNull] TurbineParser.DefectDescriptionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.defectProperties"/>.
+	/// Enter a parse tree produced by <see cref="TurbineParser.siteDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDefectProperties([NotNull] TurbineParser.DefectPropertiesContext context) { }
+	public virtual void EnterSiteDefect([NotNull] TurbineParser.SiteDefectContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.defectProperties"/>.
+	/// Exit a parse tree produced by <see cref="TurbineParser.siteDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDefectProperties([NotNull] TurbineParser.DefectPropertiesContext context) { }
+	public virtual void ExitSiteDefect([NotNull] TurbineParser.SiteDefectContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.defectProperty"/>.
+	/// Enter a parse tree produced by <see cref="TurbineParser.positionDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDefectProperty([NotNull] TurbineParser.DefectPropertyContext context) { }
+	public virtual void EnterPositionDefect([NotNull] TurbineParser.PositionDefectContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.defectProperty"/>.
+	/// Exit a parse tree produced by <see cref="TurbineParser.positionDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDefectProperty([NotNull] TurbineParser.DefectPropertyContext context) { }
+	public virtual void ExitPositionDefect([NotNull] TurbineParser.PositionDefectContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.defectType"/>.
+	/// Enter a parse tree produced by <see cref="TurbineParser.locationDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDefectType([NotNull] TurbineParser.DefectTypeContext context) { }
+	public virtual void EnterLocationDefect([NotNull] TurbineParser.LocationDefectContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.defectType"/>.
+	/// Exit a parse tree produced by <see cref="TurbineParser.locationDefect"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDefectType([NotNull] TurbineParser.DefectTypeContext context) { }
+	public virtual void ExitLocationDefect([NotNull] TurbineParser.LocationDefectContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.severity"/>.
+	/// Enter a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSeverity([NotNull] TurbineParser.SeverityContext context) { }
+	public virtual void EnterDetailsSection([NotNull] TurbineParser.DetailsSectionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.severity"/>.
+	/// Exit a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSeverity([NotNull] TurbineParser.SeverityContext context) { }
+	public virtual void ExitDetailsSection([NotNull] TurbineParser.DetailsSectionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.actions"/>.
+	/// Enter a parse tree produced by <see cref="TurbineParser.detail"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterActions([NotNull] TurbineParser.ActionsContext context) { }
+	public virtual void EnterDetail([NotNull] TurbineParser.DetailContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.actions"/>.
+	/// Exit a parse tree produced by <see cref="TurbineParser.detail"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitActions([NotNull] TurbineParser.ActionsContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.comment"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterComment([NotNull] TurbineParser.CommentContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.comment"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitComment([NotNull] TurbineParser.CommentContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.location"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterLocation([NotNull] TurbineParser.LocationContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.location"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitLocation([NotNull] TurbineParser.LocationContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.site"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSite([NotNull] TurbineParser.SiteContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.site"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSite([NotNull] TurbineParser.SiteContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.position"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPosition([NotNull] TurbineParser.PositionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.position"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPosition([NotNull] TurbineParser.PositionContext context) { }
+	public virtual void ExitDetail([NotNull] TurbineParser.DetailContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.timezone"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -251,18 +167,6 @@ public partial class TurbineBaseListener : ITurbineListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitReporterSection([NotNull] TurbineParser.ReporterSectionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDetailsSection([NotNull] TurbineParser.DetailsSectionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDetailsSection([NotNull] TurbineParser.DetailsSectionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.summarySection"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -299,6 +203,42 @@ public partial class TurbineBaseListener : ITurbineListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitKeyValueProperty([NotNull] TurbineParser.KeyValuePropertyContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.objectSections"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterObjectSections([NotNull] TurbineParser.ObjectSectionsContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.objectSections"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitObjectSections([NotNull] TurbineParser.ObjectSectionsContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.prop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterProp([NotNull] TurbineParser.PropContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.prop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitProp([NotNull] TurbineParser.PropContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterKey([NotNull] TurbineParser.KeyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TurbineParser.key"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitKey([NotNull] TurbineParser.KeyContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>
