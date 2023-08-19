@@ -1,6 +1,7 @@
 grammar Turbine;
 
-turbine: section (STATEMENT_SEP section)* ;
+turbine: section (STATEMENT_SEP 
+section)* ;
 
 section:
     defectSection
@@ -25,18 +26,30 @@ reporterSection: 'reported by:' STRING ('date:' DATE)? ('time:' TIME)?;
 
 summarySection: 'Summary:' STRING;
 
+objectSections: objectSection+;
+
+objectSection: sectionHeader tree;
+
+tree: (subSection | properties)*;
+
+sectionHeader: SEP TEXT?;
+
+subSection: MULTI_LEVEL TEXT?;
+
+properties: (child | subChild)+;
+
+child: MULTI_LEVEL keyValueSection;
+subChild: '+' keyValueSection;
+
 keyValueSection: keyValueProperty+;
 keyValueProperty: TEXT '=' TEXT;
 
-objectSections: NAME (prop)* ;
 
-prop: MULTI_LEVEL (key | keyValueSection)*;
-key: TEXT '=' TEXT;
 
 CREATE: 'Create defect';
 FOUND: 'for site';
 AND: 'and';
-NAME: '--' TEXT;
+
 WHERE: 'where';
 WITH: 'details are';
 DATE: NUMBER '-' MONTH '-' NUMBER;
