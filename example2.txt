@@ -1,13 +1,24 @@
-There is a defect found at SITE01 and POS internal 
--
-type: AnotherType
-severity: Low
-actions: None
-comment: "This is another defect"
--
-reported by: "Santosh Singh"
-date: 23-SEP-2013
-time: 13:00
--
-Details: "Detailed information about the turbine issues"
+CREATE DEFECT
+  DESCRIPTION "Critical-issue-with-turbine"
+  SITE SiteA
+  POSITION NorthTower
+  LOCATION Floor5
+  DETAILS ARE
+    TYPE Mechanical
+    SEVERITY High
+    ACTIONS A
+    COMMENT "A"
+;;;
+reported by:"John-Doe"
+date:12-JAN-06
+time:14:30
+;;;
+
+#ComponentA
++Type=Gearbox
++Manufacturer=ABC
++Name=Santosh
+--Properties
+    +Weight=X
+    +Temperature=Y
 

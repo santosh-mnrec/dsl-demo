@@ -1,7 +1,9 @@
 using Antlr4.Runtime.Misc;
 using Newtonsoft.Json.Linq;
+using Orsted.WindTurbine.DSL.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using static TurbineParser;
 
 public class TurbineVisitor : TurbineBaseVisitor<JObject>
@@ -23,10 +25,10 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     {
         JObject defectObject = new JObject();
 
-        defectObject["defectDescription"] = context.defectDescription().STRING().ToString();
-        defectObject["site"] = context.siteDefect().TEXT().ToString();
-        defectObject["position"] = context.positionDefect().TEXT().ToString();
-        defectObject["location"] = context.locationDefect().TEXT().ToString();
+        defectObject["defectDescription"] = context.defectDescription().STRING().ToString().Clean();
+        defectObject["site"] = context.siteDefect().TEXT().ToString().Clean();
+        defectObject["position"] = context.positionDefect().TEXT().ToString().Clean();
+        defectObject["location"] = context.locationDefect().TEXT().ToString().Clean();
 
         JArray detailsArray = new JArray();
 
@@ -43,7 +45,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
 
     public override JObject VisitDetail(TurbineParser.DetailContext context)
     {
-        string attributeName = context.GetChild(0).GetText().ToLower();
+        string attributeName = context.GetChild(0).GetText().ToLower().Clean();
         string value = context.GetChild(1).GetText();
         return new JObject { { attributeName, value } };
     }
@@ -52,52 +54,51 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     {
         JObject jsonObject = new JObject();
 
+        string currentComponentName = null;
+        JObject currentComponent = null;
+
         foreach (var objectSectionContext in context.objectSection())
         {
-            if (objectSectionContext.GetChild(0).GetText().StartsWith("#"))
+            if (objectSectionContext.GetText().StartsWith("#"))
             {
-                var componentName = objectSectionContext.GetChild(1).GetText();
-                var componentObject = new JObject();
-
-                if (objectSectionContext.keyValueProperty() != null)
-                {
-                    var childProperties = new JObject();
-
-                    foreach (var keyValuePropertyContext in objectSectionContext.keyValueProperty())
-                    {
-                        var propertyObject = Visit(keyValuePropertyContext);
-                        childProperties.Merge(propertyObject);
-                    }
-
-                    componentObject["Properties"] = childProperties;
-                }
-
-                if (objectSectionContext.child() != null)
-                {
-                    var childProperties = new JObject();
-
-                    foreach (var childPropertyContext in objectSectionContext.child())
-                    {
-                        foreach (var keyValuePropertyContext in childPropertyContext.keyValueProperty())
-                        {
-                            var propertyObject = Visit(keyValuePropertyContext);
-                            childProperties.Merge(propertyObject);
-                        }
-                    }
-
-                    componentObject.Merge(childProperties);
-                }
-
-                jsonObject[componentName] = componentObject;
+                currentComponentName = objectSectionContext.GetChild(1).GetText();
+                currentComponent = new JObject();
+                jsonObject[currentComponentName] = currentComponent;
             }
-            else
+
+            foreach (var keyValuePropertyContext in objectSectionContext.keyValueProperty())
             {
-                jsonObject.Merge(Visit(objectSectionContext)); // Merge child sections
+                var key = keyValuePropertyContext.TEXT(0).ToString();
+                var value = keyValuePropertyContext.TEXT(1).ToString();
+
+                if (currentComponent != null)
+                {
+                    currentComponent[key] = value;
+                }
+            }
+
+            foreach (var childContext in objectSectionContext.child())
+            {
+                var childProperties = new JObject();
+                var chidPropName = childContext.GetChild(1).GetText();
+
+                foreach (var keyValuePropertyContext in childContext.keyValueProperty())
+                {
+                    var key = keyValuePropertyContext.TEXT(0).ToString();
+                    var value = keyValuePropertyContext.TEXT(1).ToString();
+                    childProperties[key] = value;
+                }
+
+                if (currentComponent != null)
+                {
+                    currentComponent[chidPropName] = childProperties;
+                }
             }
         }
 
         return jsonObject;
     }
+
 
 
 
@@ -126,7 +127,22 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
 
         return sectionObject;
     }
+    public override JObject VisitReporterSection(TurbineParser.ReporterSectionContext context)
+    {
+        JObject reportedByObject = new JObject();
+        reportedByObject["reportedBy"] = context.GetChild(0).GetText().Clean();
+        reportedByObject["date"] = context.GetChild(1).GetText().Clean();
+        return reportedByObject;
+    }
 
+    public override JObject VisitSummarySection(TurbineParser.SummarySectionContext context)
+    {
+        JObject summaryObject = new JObject();
+        
+        return summaryObject;
+    }
+
+   
     public override JObject VisitChild(TurbineParser.ChildContext context)
     {
         JObject childObject = new JObject();
@@ -144,8 +160,8 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     {
         JObject keyValuePropertyObject = new JObject();
 
-        string key = context.TEXT(0).ToString();
-        string value = context.TEXT(1).ToString();
+        string key = context.TEXT(0).ToString().Clean();
+        string value = context.TEXT(1).ToString().Clean();
 
         keyValuePropertyObject[key] = value;
 
@@ -153,5 +169,5 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
     }
 
 
-  
+
 }
