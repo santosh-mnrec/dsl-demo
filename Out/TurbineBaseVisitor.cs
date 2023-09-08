@@ -55,7 +55,7 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// <return>The visitor result.</return>
 	public virtual Result VisitSection([NotNull] TurbineParser.SectionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.defectSection"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -63,9 +63,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDefectSection([NotNull] TurbineParser.DefectSectionContext context) { return VisitChildren(context); }
+	public virtual Result VisitDefectStatement([NotNull] TurbineParser.DefectStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.defectDescription"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.defectBlock"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -73,9 +73,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDefectDescription([NotNull] TurbineParser.DefectDescriptionContext context) { return VisitChildren(context); }
+	public virtual Result VisitDefectBlock([NotNull] TurbineParser.DefectBlockContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.siteDefect"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.descriptionProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -83,9 +83,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSiteDefect([NotNull] TurbineParser.SiteDefectContext context) { return VisitChildren(context); }
+	public virtual Result VisitDescriptionProperty([NotNull] TurbineParser.DescriptionPropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.positionDefect"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.siteProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -93,9 +93,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitPositionDefect([NotNull] TurbineParser.PositionDefectContext context) { return VisitChildren(context); }
+	public virtual Result VisitSiteProperty([NotNull] TurbineParser.SitePropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.locationDefect"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.positionProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -103,9 +103,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitLocationDefect([NotNull] TurbineParser.LocationDefectContext context) { return VisitChildren(context); }
+	public virtual Result VisitPositionProperty([NotNull] TurbineParser.PositionPropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.detailsSection"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.locationProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -113,9 +113,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDetailsSection([NotNull] TurbineParser.DetailsSectionContext context) { return VisitChildren(context); }
+	public virtual Result VisitLocationProperty([NotNull] TurbineParser.LocationPropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.detail"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.dateProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -123,9 +123,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDetail([NotNull] TurbineParser.DetailContext context) { return VisitChildren(context); }
+	public virtual Result VisitDateProperty([NotNull] TurbineParser.DatePropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.timezone"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.timeProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -133,9 +133,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTimezone([NotNull] TurbineParser.TimezoneContext context) { return VisitChildren(context); }
+	public virtual Result VisitTimeProperty([NotNull] TurbineParser.TimePropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.reporterSection"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.detailsProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -143,9 +143,9 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitReporterSection([NotNull] TurbineParser.ReporterSectionContext context) { return VisitChildren(context); }
+	public virtual Result VisitDetailsProperty([NotNull] TurbineParser.DetailsPropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TurbineParser.summarySection"/>.
+	/// Visit a parse tree produced by <see cref="TurbineParser.detailProperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -153,7 +153,17 @@ public partial class TurbineBaseVisitor<Result> : AbstractParseTreeVisitor<Resul
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSummarySection([NotNull] TurbineParser.SummarySectionContext context) { return VisitChildren(context); }
+	public virtual Result VisitDetailProperty([NotNull] TurbineParser.DetailPropertyContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TurbineParser.reporterClause"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitReporterClause([NotNull] TurbineParser.ReporterClauseContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TurbineParser.objectSections"/>.
 	/// <para>

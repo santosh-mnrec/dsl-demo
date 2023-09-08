@@ -4,30 +4,37 @@ turbine: section (STATEMENT_SEP
 section)* ;
 
 section:
-    defectSection
-    | reporterSection?
-    | detailsSection? 
-    | summarySection?
+    defectStatement
+  
     | keyValueSection?
     | objectSections
  
     ;
+defectStatement:
+    'Create Defect with' defectBlock ('where' reporterClause)?;
 
-defectSection: 'CREATE DEFECT' defectDescription siteDefect positionDefect locationDefect detailsSection;
+defectBlock:
+    '{'
+        (descriptionProperty | siteProperty | positionProperty | locationProperty | dateProperty | timeProperty | detailsProperty)*
+    '}';
 
-defectDescription: 'DESCRIPTION' STRING;
-siteDefect: 'SITE' TEXT;
-positionDefect: 'POSITION' TEXT;
-locationDefect: 'LOCATION' TEXT;
-detailsSection: 'DETAILS ARE' detail+;
+descriptionProperty: 'Description' STRING;
+siteProperty: 'Site' STRING;
+positionProperty: 'Position' STRING;
+locationProperty: 'Location' STRING;
+dateProperty: 'Date' STRING; // You may want to refine the DATE format as needed
+timeProperty: 'Time' STRING; // You may want to refine the TIME format as needed
+detailsProperty: 'Details:' detailProperty+;
 
-detail: ('TYPE' TEXT) | ('SEVERITY' TEXT) | ('ACTIONS' TEXT) | ('COMMENT' STRING);
-timezone: ('UTC' | 'GMT' | 'EST' | 'PST');
+detailProperty:
+    'Type' STRING
+    | 'Severity' NUMBER
+    | 'Actions' STRING
+    | 'Comment' STRING
+    | 'Failure Mode' STRING;
 
-reporterSection: 'reported by:' STRING ('date:' DATE)? ('time:' TIME)?;
-
-summarySection: 'Summary:' STRING;
-
+reporterClause:
+    'Reporter' STRING;
 objectSections: objectSection*;
 
 objectSection: '#' TEXT 
