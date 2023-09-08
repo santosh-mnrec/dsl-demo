@@ -103,5 +103,5 @@ $RECYCLE.BIN/
 *.sln.docstates
 
 bin/*
-obj/*
+o[O]bj/*
 .vs/*

@@ -33,6 +33,7 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         JObject defectBlockObject = new JObject();
         foreach (var propertyContext in context.defectBlock().children)
         {
+
             if (propertyContext is TurbineParser.DescriptionPropertyContext)
             {
                 defectBlockObject["Description"] = propertyContext.GetChild(1).ToString().Clean();
@@ -57,6 +58,21 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
             {
                 defectBlockObject["Time"] = propertyContext.GetChild(1).ToString().Clean();
             }
+            else if (propertyContext is TurbineParser.DetailsPropertyContext detailsPropertyContext)
+            {
+                // Handle the Details property
+                JObject detailsObject = new JObject();
+                foreach (var detailContext in detailsPropertyContext.detailProperty())
+                {
+                    string propertyName = detailContext.GetChild(0).GetText();
+                    string propertyValue = detailContext.GetChild(1).GetText().Clean();
+                    detailsObject[propertyName] = propertyValue;
+                }
+                defectBlockObject["Details"] = detailsObject;
+            }
+
+
+
         }
 
         defectObject["Turbine"]["Defect"] = defectBlockObject;
@@ -64,6 +80,18 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
         return defectObject;
     }
 
+    public override JObject VisitDetailProperty(TurbineParser.DetailPropertyContext context)
+    {
+        string propertyName = context.GetChild(0).GetText();
+        string propertyValue = context.GetChild(1).GetText();
+
+        JObject detailPropertyObject = new JObject
+    {
+        { propertyName, propertyValue }
+    };
+
+        return detailPropertyObject;
+    }
 
 
 
