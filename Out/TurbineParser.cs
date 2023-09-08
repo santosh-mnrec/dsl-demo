@@ -38,34 +38,36 @@ public partial class TurbineParser : Parser {
 	public const int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		YEAR=18, MONTH=19, THERE_IS_A=20, FOUND_ON=21, AT_SITE=22, AT_DATE=23, 
-		AT_TIME=24, SEPARATOR=25, COLON=26, TEXT=27, STRING=28, DATE=29, TIME=30, 
-		JAN=31, FEB=32, MAR=33, APR=34, MAY=35, JUN=36, JUL=37, AUG=38, SEP=39, 
-		OCT=40, NOV=41, DEC=42, NUMBER=43, WS=44;
+		T__17=18, CREATE=19, FOUND=20, AND=21, WHERE=22, WITH=23, DATE=24, TIME=25, 
+		NUMBER=26, MONTH=27, STRING=28, SEPARATOR=29, STATEMENT_SEP=30, TEXT=31, 
+		COLON=32, PARENT=33, CHILD=34, SUBCHILD=35, MULTI_LEVEL=36, WS=37;
 	public const int
-		RULE_turbine = 0, RULE_defect = 1, RULE_defectType = 2, RULE_severity = 3, 
-		RULE_actions = 4, RULE_comment = 5, RULE_location = 6, RULE_site = 7, 
-		RULE_postition = 8, RULE_timezone = 9, RULE_reporter = 10, RULE_details = 11, 
-		RULE_summary = 12;
+		RULE_turbine = 0, RULE_section = 1, RULE_defectStatement = 2, RULE_defectBlock = 3, 
+		RULE_descriptionProperty = 4, RULE_siteProperty = 5, RULE_positionProperty = 6, 
+		RULE_locationProperty = 7, RULE_dateProperty = 8, RULE_timeProperty = 9, 
+		RULE_detailsProperty = 10, RULE_detailProperty = 11, RULE_reporterClause = 12, 
+		RULE_objectSections = 13, RULE_objectSection = 14, RULE_child = 15, RULE_keyValueSection = 16, 
+		RULE_keyValueProperty = 17;
 	public static readonly string[] ruleNames = {
-		"turbine", "defect", "defectType", "severity", "actions", "comment", "location", 
-		"site", "postition", "timezone", "reporter", "details", "summary"
+		"turbine", "section", "defectStatement", "defectBlock", "descriptionProperty", 
+		"siteProperty", "positionProperty", "locationProperty", "dateProperty", 
+		"timeProperty", "detailsProperty", "detailProperty", "reporterClause", 
+		"objectSections", "objectSection", "child", "keyValueSection", "keyValueProperty"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'found at'", "'and'", "'type:'", "'severity:'", "'actions:'", "'comment:'", 
-		"'external'", "'internal'", "'UTC'", "'GMT'", "'EST'", "'PST'", "'reported by:'", 
-		"'date:'", "'time:'", "'Details:'", "'Summary:'", null, null, "'There is a'", 
-		"'found on'", "'at site'", "'at date'", "'at time'", "'-'", "':'", null, 
-		null, null, null, "'JAN'", "'FEB'", "'MAR'", "'APR'", "'MAY'", "'JUN'", 
-		"'JUL'", "'AUG'", "'SEP'", "'OCT'", "'NOV'", "'DEC'"
+		null, "'Create Defect with'", "'{'", "'}'", "'Description'", "'Site'", 
+		"'Position'", "'Location'", "'Date'", "'Time'", "'Details:'", "'Type'", 
+		"'Severity'", "'Actions'", "'Comment'", "'Failure Mode'", "'Reporter'", 
+		"'+'", "'='", "'Create defect'", "'for site'", "'and'", "'where'", "'details are'", 
+		null, null, null, null, null, "'-'", "';;;'", null, "':'", "'#'", "'~'", 
+		"'--'", "'---'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, "YEAR", "MONTH", "THERE_IS_A", "FOUND_ON", 
-		"AT_SITE", "AT_DATE", "AT_TIME", "SEPARATOR", "COLON", "TEXT", "STRING", 
-		"DATE", "TIME", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", 
-		"SEP", "OCT", "NOV", "DEC", "NUMBER", "WS"
+		null, null, null, null, null, null, null, "CREATE", "FOUND", "AND", "WHERE", 
+		"WITH", "DATE", "TIME", "NUMBER", "MONTH", "STRING", "SEPARATOR", "STATEMENT_SEP", 
+		"TEXT", "COLON", "PARENT", "CHILD", "SUBCHILD", "MULTI_LEVEL", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -100,20 +102,15 @@ public partial class TurbineParser : Parser {
 	}
 
 	public partial class TurbineContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public DefectContext[] defect() {
-			return GetRuleContexts<DefectContext>();
+		[System.Diagnostics.DebuggerNonUserCode] public SectionContext[] section() {
+			return GetRuleContexts<SectionContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public DefectContext defect(int i) {
-			return GetRuleContext<DefectContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public SectionContext section(int i) {
+			return GetRuleContext<SectionContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ReporterContext reporter() {
-			return GetRuleContext<ReporterContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public DetailsContext details() {
-			return GetRuleContext<DetailsContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public SummaryContext summary() {
-			return GetRuleContext<SummaryContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] STATEMENT_SEP() { return GetTokens(TurbineParser.STATEMENT_SEP); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STATEMENT_SEP(int i) {
+			return GetToken(TurbineParser.STATEMENT_SEP, i);
 		}
 		public TurbineContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -146,50 +143,24 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 29;
+			State = 36;
+			section();
+			State = 41;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==THERE_IS_A) {
+			while (_la==STATEMENT_SEP) {
 				{
 				{
-				State = 26;
-				defect();
+				State = 37;
+				Match(STATEMENT_SEP);
+				State = 38;
+				section();
 				}
 				}
-				State = 31;
+				State = 43;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 33;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==T__12) {
-				{
-				State = 32;
-				reporter();
-				}
-			}
-
-			State = 37;
-			ErrorHandler.Sync(this);
-			switch (TokenStream.LA(1)) {
-			case T__15:
-				{
-				State = 35;
-				details();
-				}
-				break;
-			case T__16:
-				{
-				State = 36;
-				summary();
-				}
-				break;
-			case Eof:
-				break;
-			default:
-				break;
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -203,189 +174,294 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class DefectContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode THERE_IS_A() { return GetToken(TurbineParser.THERE_IS_A, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public SiteContext[] site() {
-			return GetRuleContexts<SiteContext>();
+	public partial class SectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public DefectStatementContext defectStatement() {
+			return GetRuleContext<DefectStatementContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public SiteContext site(int i) {
-			return GetRuleContext<SiteContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValueSectionContext keyValueSection() {
+			return GetRuleContext<KeyValueSectionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public PostitionContext postition() {
-			return GetRuleContext<PostitionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ObjectSectionsContext objectSections() {
+			return GetRuleContext<ObjectSectionsContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public LocationContext location() {
-			return GetRuleContext<LocationContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AT_SITE() { return GetToken(TurbineParser.AT_SITE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public DefectTypeContext defectType() {
-			return GetRuleContext<DefectTypeContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public SeverityContext severity() {
-			return GetRuleContext<SeverityContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ActionsContext actions() {
-			return GetRuleContext<ActionsContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public CommentContext comment() {
-			return GetRuleContext<CommentContext>(0);
-		}
-		public DefectContext(ParserRuleContext parent, int invokingState)
+		public SectionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_defect; } }
+		public override int RuleIndex { get { return RULE_section; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterDefect(this);
+			if (typedListener != null) typedListener.EnterSection(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitDefect(this);
+			if (typedListener != null) typedListener.ExitSection(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDefect(this);
+			if (typedVisitor != null) return typedVisitor.VisitSection(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public DefectContext defect() {
-		DefectContext _localctx = new DefectContext(Context, State);
-		EnterRule(_localctx, 2, RULE_defect);
+	public SectionContext section() {
+		SectionContext _localctx = new SectionContext(Context, State);
+		EnterRule(_localctx, 2, RULE_section);
 		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 39;
-			Match(THERE_IS_A);
-			State = 40;
-			Match(TEXT);
-			State = 41;
-			Match(T__0);
-			State = 42;
-			site();
-			State = 43;
-			Match(T__1);
-			State = 44;
-			postition();
-			State = 45;
-			location();
-			State = 48;
+			State = 49;
 			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==AT_SITE) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+			case 1:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 44;
+				defectStatement();
+				}
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
 				{
 				State = 46;
-				Match(AT_SITE);
-				State = 47;
-				site();
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==T__16 || _la==TEXT) {
+					{
+					State = 45;
+					keyValueSection();
+					}
 				}
-			}
 
-			State = 51;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==T__2) {
+				}
+				break;
+			case 3:
+				EnterOuterAlt(_localctx, 3);
 				{
-				State = 50;
-				defectType();
+				State = 48;
+				objectSections();
 				}
+				break;
 			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
 
-			State = 54;
+	public partial class DefectStatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public DefectBlockContext defectBlock() {
+			return GetRuleContext<DefectBlockContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode WHERE() { return GetToken(TurbineParser.WHERE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ReporterClauseContext reporterClause() {
+			return GetRuleContext<ReporterClauseContext>(0);
+		}
+		public DefectStatementContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_defectStatement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterDefectStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitDefectStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDefectStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DefectStatementContext defectStatement() {
+		DefectStatementContext _localctx = new DefectStatementContext(Context, State);
+		EnterRule(_localctx, 4, RULE_defectStatement);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 51;
+			Match(T__0);
+			State = 52;
+			defectBlock();
+			State = 55;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (_la==T__3) {
+			if (_la==WHERE) {
 				{
 				State = 53;
-				severity();
+				Match(WHERE);
+				State = 54;
+				reporterClause();
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class DefectBlockContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public DescriptionPropertyContext[] descriptionProperty() {
+			return GetRuleContexts<DescriptionPropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DescriptionPropertyContext descriptionProperty(int i) {
+			return GetRuleContext<DescriptionPropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public SitePropertyContext[] siteProperty() {
+			return GetRuleContexts<SitePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public SitePropertyContext siteProperty(int i) {
+			return GetRuleContext<SitePropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public PositionPropertyContext[] positionProperty() {
+			return GetRuleContexts<PositionPropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public PositionPropertyContext positionProperty(int i) {
+			return GetRuleContext<PositionPropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public LocationPropertyContext[] locationProperty() {
+			return GetRuleContexts<LocationPropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public LocationPropertyContext locationProperty(int i) {
+			return GetRuleContext<LocationPropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DatePropertyContext[] dateProperty() {
+			return GetRuleContexts<DatePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DatePropertyContext dateProperty(int i) {
+			return GetRuleContext<DatePropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TimePropertyContext[] timeProperty() {
+			return GetRuleContexts<TimePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TimePropertyContext timeProperty(int i) {
+			return GetRuleContext<TimePropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DetailsPropertyContext[] detailsProperty() {
+			return GetRuleContexts<DetailsPropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DetailsPropertyContext detailsProperty(int i) {
+			return GetRuleContext<DetailsPropertyContext>(i);
+		}
+		public DefectBlockContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_defectBlock; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterDefectBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitDefectBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDefectBlock(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DefectBlockContext defectBlock() {
+		DefectBlockContext _localctx = new DefectBlockContext(Context, State);
+		EnterRule(_localctx, 6, RULE_defectBlock);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
 			State = 57;
+			Match(T__1);
+			State = 67;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (_la==T__4) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 2032L) != 0) {
 				{
-				State = 56;
-				actions();
+				State = 65;
+				ErrorHandler.Sync(this);
+				switch (TokenStream.LA(1)) {
+				case T__3:
+					{
+					State = 58;
+					descriptionProperty();
+					}
+					break;
+				case T__4:
+					{
+					State = 59;
+					siteProperty();
+					}
+					break;
+				case T__5:
+					{
+					State = 60;
+					positionProperty();
+					}
+					break;
+				case T__6:
+					{
+					State = 61;
+					locationProperty();
+					}
+					break;
+				case T__7:
+					{
+					State = 62;
+					dateProperty();
+					}
+					break;
+				case T__8:
+					{
+					State = 63;
+					timeProperty();
+					}
+					break;
+				case T__9:
+					{
+					State = 64;
+					detailsProperty();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
-			}
-
-			State = 60;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==T__5) {
-				{
-				State = 59;
-				comment();
 				}
+				State = 69;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
 			}
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class DefectTypeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		public DefectTypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_defectType; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterDefectType(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitDefectType(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDefectType(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public DefectTypeContext defectType() {
-		DefectTypeContext _localctx = new DefectTypeContext(Context, State);
-		EnterRule(_localctx, 4, RULE_defectType);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 62;
+			State = 70;
 			Match(T__2);
-			State = 63;
-			_la = TokenStream.LA(1);
-			if ( !(_la==TEXT || _la==STRING) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -399,148 +475,41 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class SeverityContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
+	public partial class DescriptionPropertyContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		public SeverityContext(ParserRuleContext parent, int invokingState)
+		public DescriptionPropertyContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_severity; } }
+		public override int RuleIndex { get { return RULE_descriptionProperty; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSeverity(this);
+			if (typedListener != null) typedListener.EnterDescriptionProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSeverity(this);
+			if (typedListener != null) typedListener.ExitDescriptionProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSeverity(this);
+			if (typedVisitor != null) return typedVisitor.VisitDescriptionProperty(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public SeverityContext severity() {
-		SeverityContext _localctx = new SeverityContext(Context, State);
-		EnterRule(_localctx, 6, RULE_severity);
-		int _la;
+	public DescriptionPropertyContext descriptionProperty() {
+		DescriptionPropertyContext _localctx = new DescriptionPropertyContext(Context, State);
+		EnterRule(_localctx, 8, RULE_descriptionProperty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 65;
-			Match(T__3);
-			State = 66;
-			_la = TokenStream.LA(1);
-			if ( !(_la==TEXT || _la==STRING) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class ActionsContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		public ActionsContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_actions; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterActions(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitActions(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitActions(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public ActionsContext actions() {
-		ActionsContext _localctx = new ActionsContext(Context, State);
-		EnterRule(_localctx, 8, RULE_actions);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 68;
-			Match(T__4);
-			State = 69;
-			Match(TEXT);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class CommentContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		public CommentContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_comment; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterComment(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitComment(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitComment(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public CommentContext comment() {
-		CommentContext _localctx = new CommentContext(Context, State);
-		EnterRule(_localctx, 10, RULE_comment);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 71;
-			Match(T__5);
 			State = 72;
+			Match(T__3);
+			State = 73;
 			Match(STRING);
 			}
 		}
@@ -555,65 +524,42 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class LocationContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] TEXT() { return GetTokens(TurbineParser.TEXT); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT(int i) {
-			return GetToken(TurbineParser.TEXT, i);
-		}
-		public LocationContext(ParserRuleContext parent, int invokingState)
+	public partial class SitePropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public SitePropertyContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_location; } }
+		public override int RuleIndex { get { return RULE_siteProperty; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterLocation(this);
+			if (typedListener != null) typedListener.EnterSiteProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitLocation(this);
+			if (typedListener != null) typedListener.ExitSiteProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitLocation(this);
+			if (typedVisitor != null) return typedVisitor.VisitSiteProperty(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public LocationContext location() {
-		LocationContext _localctx = new LocationContext(Context, State);
-		EnterRule(_localctx, 12, RULE_location);
-		int _la;
+	public SitePropertyContext siteProperty() {
+		SitePropertyContext _localctx = new SitePropertyContext(Context, State);
+		EnterRule(_localctx, 10, RULE_siteProperty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 74;
-			_la = TokenStream.LA(1);
-			if ( !(_la==T__6 || _la==T__7) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
-			State = 78;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while (_la==TEXT) {
-				{
-				{
-				State = 75;
-				Match(TEXT);
-				}
-				}
-				State = 80;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-			}
+			State = 75;
+			Match(T__4);
+			State = 76;
+			Match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -627,43 +573,91 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class SiteContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(TurbineParser.NUMBER, 0); }
-		public SiteContext(ParserRuleContext parent, int invokingState)
+	public partial class PositionPropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public PositionPropertyContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_site; } }
+		public override int RuleIndex { get { return RULE_positionProperty; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSite(this);
+			if (typedListener != null) typedListener.EnterPositionProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSite(this);
+			if (typedListener != null) typedListener.ExitPositionProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSite(this);
+			if (typedVisitor != null) return typedVisitor.VisitPositionProperty(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public SiteContext site() {
-		SiteContext _localctx = new SiteContext(Context, State);
-		EnterRule(_localctx, 14, RULE_site);
+	public PositionPropertyContext positionProperty() {
+		PositionPropertyContext _localctx = new PositionPropertyContext(Context, State);
+		EnterRule(_localctx, 12, RULE_positionProperty);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 78;
+			Match(T__5);
+			State = 79;
+			Match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class LocationPropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public LocationPropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_locationProperty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterLocationProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitLocationProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitLocationProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public LocationPropertyContext locationProperty() {
+		LocationPropertyContext _localctx = new LocationPropertyContext(Context, State);
+		EnterRule(_localctx, 14, RULE_locationProperty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 81;
-			Match(TEXT);
+			Match(T__6);
 			State = 82;
-			Match(NUMBER);
+			Match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -677,268 +671,661 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class PostitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		public PostitionContext(ParserRuleContext parent, int invokingState)
+	public partial class DatePropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public DatePropertyContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_postition; } }
+		public override int RuleIndex { get { return RULE_dateProperty; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterPostition(this);
+			if (typedListener != null) typedListener.EnterDateProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitPostition(this);
+			if (typedListener != null) typedListener.ExitDateProperty(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitPostition(this);
+			if (typedVisitor != null) return typedVisitor.VisitDateProperty(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public PostitionContext postition() {
-		PostitionContext _localctx = new PostitionContext(Context, State);
-		EnterRule(_localctx, 16, RULE_postition);
+	public DatePropertyContext dateProperty() {
+		DatePropertyContext _localctx = new DatePropertyContext(Context, State);
+		EnterRule(_localctx, 16, RULE_dateProperty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 84;
-			Match(TEXT);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class TimezoneContext : ParserRuleContext {
-		public TimezoneContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_timezone; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterTimezone(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitTimezone(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTimezone(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public TimezoneContext timezone() {
-		TimezoneContext _localctx = new TimezoneContext(Context, State);
-		EnterRule(_localctx, 18, RULE_timezone);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 86;
-			_la = TokenStream.LA(1);
-			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 7680L) != 0) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class ReporterContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DATE() { return GetToken(TurbineParser.DATE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TIME() { return GetToken(TurbineParser.TIME, 0); }
-		public ReporterContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_reporter; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterReporter(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitReporter(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitReporter(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public ReporterContext reporter() {
-		ReporterContext _localctx = new ReporterContext(Context, State);
-		EnterRule(_localctx, 20, RULE_reporter);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 88;
-			Match(T__12);
-			State = 89;
+			Match(T__7);
+			State = 85;
 			Match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class TimePropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public TimePropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_timeProperty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterTimeProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitTimeProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitTimeProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public TimePropertyContext timeProperty() {
+		TimePropertyContext _localctx = new TimePropertyContext(Context, State);
+		EnterRule(_localctx, 18, RULE_timeProperty);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 87;
+			Match(T__8);
+			State = 88;
+			Match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class DetailsPropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public DetailPropertyContext[] detailProperty() {
+			return GetRuleContexts<DetailPropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public DetailPropertyContext detailProperty(int i) {
+			return GetRuleContext<DetailPropertyContext>(i);
+		}
+		public DetailsPropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_detailsProperty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterDetailsProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitDetailsProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDetailsProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DetailsPropertyContext detailsProperty() {
+		DetailsPropertyContext _localctx = new DetailsPropertyContext(Context, State);
+		EnterRule(_localctx, 20, RULE_detailsProperty);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 90;
+			Match(T__9);
 			State = 92;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (_la==T__13) {
+			do {
 				{
-				State = 90;
-				Match(T__13);
+				{
 				State = 91;
-				Match(DATE);
+				detailProperty();
 				}
+				}
+				State = 94;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 63488L) != 0 );
 			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
 
-			State = 96;
+	public partial class DetailPropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(TurbineParser.NUMBER, 0); }
+		public DetailPropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_detailProperty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterDetailProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitDetailProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDetailProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DetailPropertyContext detailProperty() {
+		DetailPropertyContext _localctx = new DetailPropertyContext(Context, State);
+		EnterRule(_localctx, 22, RULE_detailProperty);
+		try {
+			State = 106;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case T__10:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 96;
+				Match(T__10);
+				State = 97;
+				Match(STRING);
+				}
+				break;
+			case T__11:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 98;
+				Match(T__11);
+				State = 99;
+				Match(NUMBER);
+				}
+				break;
+			case T__12:
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 100;
+				Match(T__12);
+				State = 101;
+				Match(STRING);
+				}
+				break;
+			case T__13:
+				EnterOuterAlt(_localctx, 4);
+				{
+				State = 102;
+				Match(T__13);
+				State = 103;
+				Match(STRING);
+				}
+				break;
+			case T__14:
+				EnterOuterAlt(_localctx, 5);
+				{
+				State = 104;
+				Match(T__14);
+				State = 105;
+				Match(STRING);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ReporterClauseContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
+		public ReporterClauseContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_reporterClause; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterReporterClause(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitReporterClause(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitReporterClause(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ReporterClauseContext reporterClause() {
+		ReporterClauseContext _localctx = new ReporterClauseContext(Context, State);
+		EnterRule(_localctx, 24, RULE_reporterClause);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 108;
+			Match(T__15);
+			State = 109;
+			Match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ObjectSectionsContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ObjectSectionContext[] objectSection() {
+			return GetRuleContexts<ObjectSectionContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ObjectSectionContext objectSection(int i) {
+			return GetRuleContext<ObjectSectionContext>(i);
+		}
+		public ObjectSectionsContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_objectSections; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterObjectSections(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitObjectSections(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitObjectSections(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ObjectSectionsContext objectSections() {
+		ObjectSectionsContext _localctx = new ObjectSectionsContext(Context, State);
+		EnterRule(_localctx, 26, RULE_objectSections);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 114;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (_la==T__14) {
+			while (_la==PARENT) {
 				{
-				State = 94;
-				Match(T__14);
-				State = 95;
-				Match(TIME);
+				{
+				State = 111;
+				objectSection();
+				}
+				}
+				State = 116;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ObjectSectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARENT() { return GetToken(TurbineParser.PARENT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext[] keyValueProperty() {
+			return GetRuleContexts<KeyValuePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext keyValueProperty(int i) {
+			return GetRuleContext<KeyValuePropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ChildContext[] child() {
+			return GetRuleContexts<ChildContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ChildContext child(int i) {
+			return GetRuleContext<ChildContext>(i);
+		}
+		public ObjectSectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_objectSection; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterObjectSection(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitObjectSection(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitObjectSection(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ObjectSectionContext objectSection() {
+		ObjectSectionContext _localctx = new ObjectSectionContext(Context, State);
+		EnterRule(_localctx, 28, RULE_objectSection);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 117;
+			Match(PARENT);
+			State = 118;
+			Match(TEXT);
+			State = 123;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 36507353088L) != 0) {
+				{
+				State = 121;
+				ErrorHandler.Sync(this);
+				switch (TokenStream.LA(1)) {
+				case T__16:
+				case TEXT:
+					{
+					State = 119;
+					keyValueProperty();
+					}
+					break;
+				case SUBCHILD:
+					{
+					State = 120;
+					child();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				State = 125;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ChildContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUBCHILD() { return GetToken(TurbineParser.SUBCHILD, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext[] keyValueProperty() {
+			return GetRuleContexts<KeyValuePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext keyValueProperty(int i) {
+			return GetRuleContext<KeyValuePropertyContext>(i);
+		}
+		public ChildContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_child; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterChild(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitChild(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitChild(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ChildContext child() {
+		ChildContext _localctx = new ChildContext(Context, State);
+		EnterRule(_localctx, 30, RULE_child);
+		try {
+			int _alt;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 126;
+			Match(SUBCHILD);
+			State = 127;
+			Match(TEXT);
+			State = 131;
+			ErrorHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(TokenStream,11,Context);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					State = 128;
+					keyValueProperty();
+					}
+					} 
+				}
+				State = 133;
+				ErrorHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(TokenStream,11,Context);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class KeyValueSectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext[] keyValueProperty() {
+			return GetRuleContexts<KeyValuePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext keyValueProperty(int i) {
+			return GetRuleContext<KeyValuePropertyContext>(i);
+		}
+		public KeyValueSectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_keyValueSection; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterKeyValueSection(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitKeyValueSection(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitKeyValueSection(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public KeyValueSectionContext keyValueSection() {
+		KeyValueSectionContext _localctx = new KeyValueSectionContext(Context, State);
+		EnterRule(_localctx, 32, RULE_keyValueSection);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 135;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			do {
+				{
+				{
+				State = 134;
+				keyValueProperty();
+				}
+				}
+				State = 137;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			} while ( _la==T__16 || _la==TEXT );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class KeyValuePropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] TEXT() { return GetTokens(TurbineParser.TEXT); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT(int i) {
+			return GetToken(TurbineParser.TEXT, i);
+		}
+		public KeyValuePropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_keyValueProperty; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.EnterKeyValueProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			ITurbineListener typedListener = listener as ITurbineListener;
+			if (typedListener != null) typedListener.ExitKeyValueProperty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitKeyValueProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public KeyValuePropertyContext keyValueProperty() {
+		KeyValuePropertyContext _localctx = new KeyValuePropertyContext(Context, State);
+		EnterRule(_localctx, 34, RULE_keyValueProperty);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 140;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==T__16) {
+				{
+				State = 139;
+				Match(T__16);
 				}
 			}
 
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class DetailsContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		public DetailsContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_details; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterDetails(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitDetails(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDetails(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public DetailsContext details() {
-		DetailsContext _localctx = new DetailsContext(Context, State);
-		EnterRule(_localctx, 22, RULE_details);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 98;
-			Match(T__15);
-			State = 99;
-			Match(STRING);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class SummaryContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(TurbineParser.STRING, 0); }
-		public SummaryContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_summary; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSummary(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSummary(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSummary(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public SummaryContext summary() {
-		SummaryContext _localctx = new SummaryContext(Context, State);
-		EnterRule(_localctx, 24, RULE_summary);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 101;
-			Match(T__16);
-			State = 102;
-			Match(STRING);
+			State = 142;
+			Match(TEXT);
+			State = 143;
+			Match(T__17);
+			State = 144;
+			Match(TEXT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -953,36 +1340,51 @@ public partial class TurbineParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,44,105,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
-		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,1,0,5,0,28,8,0,10,0,
-		12,0,31,9,0,1,0,3,0,34,8,0,1,0,1,0,3,0,38,8,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		1,1,1,1,1,1,3,1,49,8,1,1,1,3,1,52,8,1,1,1,3,1,55,8,1,1,1,3,1,58,8,1,1,
-		1,3,1,61,8,1,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,6,1,6,5,
-		6,77,8,6,10,6,12,6,80,9,6,1,7,1,7,1,7,1,8,1,8,1,9,1,9,1,10,1,10,1,10,1,
-		10,3,10,93,8,10,1,10,1,10,3,10,97,8,10,1,11,1,11,1,11,1,12,1,12,1,12,1,
-		12,0,0,13,0,2,4,6,8,10,12,14,16,18,20,22,24,0,3,1,0,27,28,1,0,7,8,1,0,
-		9,12,103,0,29,1,0,0,0,2,39,1,0,0,0,4,62,1,0,0,0,6,65,1,0,0,0,8,68,1,0,
-		0,0,10,71,1,0,0,0,12,74,1,0,0,0,14,81,1,0,0,0,16,84,1,0,0,0,18,86,1,0,
-		0,0,20,88,1,0,0,0,22,98,1,0,0,0,24,101,1,0,0,0,26,28,3,2,1,0,27,26,1,0,
-		0,0,28,31,1,0,0,0,29,27,1,0,0,0,29,30,1,0,0,0,30,33,1,0,0,0,31,29,1,0,
-		0,0,32,34,3,20,10,0,33,32,1,0,0,0,33,34,1,0,0,0,34,37,1,0,0,0,35,38,3,
-		22,11,0,36,38,3,24,12,0,37,35,1,0,0,0,37,36,1,0,0,0,37,38,1,0,0,0,38,1,
-		1,0,0,0,39,40,5,20,0,0,40,41,5,27,0,0,41,42,5,1,0,0,42,43,3,14,7,0,43,
-		44,5,2,0,0,44,45,3,16,8,0,45,48,3,12,6,0,46,47,5,22,0,0,47,49,3,14,7,0,
-		48,46,1,0,0,0,48,49,1,0,0,0,49,51,1,0,0,0,50,52,3,4,2,0,51,50,1,0,0,0,
-		51,52,1,0,0,0,52,54,1,0,0,0,53,55,3,6,3,0,54,53,1,0,0,0,54,55,1,0,0,0,
-		55,57,1,0,0,0,56,58,3,8,4,0,57,56,1,0,0,0,57,58,1,0,0,0,58,60,1,0,0,0,
-		59,61,3,10,5,0,60,59,1,0,0,0,60,61,1,0,0,0,61,3,1,0,0,0,62,63,5,3,0,0,
-		63,64,7,0,0,0,64,5,1,0,0,0,65,66,5,4,0,0,66,67,7,0,0,0,67,7,1,0,0,0,68,
-		69,5,5,0,0,69,70,5,27,0,0,70,9,1,0,0,0,71,72,5,6,0,0,72,73,5,28,0,0,73,
-		11,1,0,0,0,74,78,7,1,0,0,75,77,5,27,0,0,76,75,1,0,0,0,77,80,1,0,0,0,78,
-		76,1,0,0,0,78,79,1,0,0,0,79,13,1,0,0,0,80,78,1,0,0,0,81,82,5,27,0,0,82,
-		83,5,43,0,0,83,15,1,0,0,0,84,85,5,27,0,0,85,17,1,0,0,0,86,87,7,2,0,0,87,
-		19,1,0,0,0,88,89,5,13,0,0,89,92,5,28,0,0,90,91,5,14,0,0,91,93,5,29,0,0,
-		92,90,1,0,0,0,92,93,1,0,0,0,93,96,1,0,0,0,94,95,5,15,0,0,95,97,5,30,0,
-		0,96,94,1,0,0,0,96,97,1,0,0,0,97,21,1,0,0,0,98,99,5,16,0,0,99,100,5,28,
-		0,0,100,23,1,0,0,0,101,102,5,17,0,0,102,103,5,28,0,0,103,25,1,0,0,0,11,
-		29,33,37,48,51,54,57,60,78,92,96
+		4,1,37,147,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
+		2,15,7,15,2,16,7,16,2,17,7,17,1,0,1,0,1,0,5,0,40,8,0,10,0,12,0,43,9,0,
+		1,1,1,1,3,1,47,8,1,1,1,3,1,50,8,1,1,2,1,2,1,2,1,2,3,2,56,8,2,1,3,1,3,1,
+		3,1,3,1,3,1,3,1,3,1,3,5,3,66,8,3,10,3,12,3,69,9,3,1,3,1,3,1,4,1,4,1,4,
+		1,5,1,5,1,5,1,6,1,6,1,6,1,7,1,7,1,7,1,8,1,8,1,8,1,9,1,9,1,9,1,10,1,10,
+		4,10,93,8,10,11,10,12,10,94,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,
+		11,1,11,3,11,107,8,11,1,12,1,12,1,12,1,13,5,13,113,8,13,10,13,12,13,116,
+		9,13,1,14,1,14,1,14,1,14,5,14,122,8,14,10,14,12,14,125,9,14,1,15,1,15,
+		1,15,5,15,130,8,15,10,15,12,15,133,9,15,1,16,4,16,136,8,16,11,16,12,16,
+		137,1,17,3,17,141,8,17,1,17,1,17,1,17,1,17,1,17,0,0,18,0,2,4,6,8,10,12,
+		14,16,18,20,22,24,26,28,30,32,34,0,0,151,0,36,1,0,0,0,2,49,1,0,0,0,4,51,
+		1,0,0,0,6,57,1,0,0,0,8,72,1,0,0,0,10,75,1,0,0,0,12,78,1,0,0,0,14,81,1,
+		0,0,0,16,84,1,0,0,0,18,87,1,0,0,0,20,90,1,0,0,0,22,106,1,0,0,0,24,108,
+		1,0,0,0,26,114,1,0,0,0,28,117,1,0,0,0,30,126,1,0,0,0,32,135,1,0,0,0,34,
+		140,1,0,0,0,36,41,3,2,1,0,37,38,5,30,0,0,38,40,3,2,1,0,39,37,1,0,0,0,40,
+		43,1,0,0,0,41,39,1,0,0,0,41,42,1,0,0,0,42,1,1,0,0,0,43,41,1,0,0,0,44,50,
+		3,4,2,0,45,47,3,32,16,0,46,45,1,0,0,0,46,47,1,0,0,0,47,50,1,0,0,0,48,50,
+		3,26,13,0,49,44,1,0,0,0,49,46,1,0,0,0,49,48,1,0,0,0,50,3,1,0,0,0,51,52,
+		5,1,0,0,52,55,3,6,3,0,53,54,5,22,0,0,54,56,3,24,12,0,55,53,1,0,0,0,55,
+		56,1,0,0,0,56,5,1,0,0,0,57,67,5,2,0,0,58,66,3,8,4,0,59,66,3,10,5,0,60,
+		66,3,12,6,0,61,66,3,14,7,0,62,66,3,16,8,0,63,66,3,18,9,0,64,66,3,20,10,
+		0,65,58,1,0,0,0,65,59,1,0,0,0,65,60,1,0,0,0,65,61,1,0,0,0,65,62,1,0,0,
+		0,65,63,1,0,0,0,65,64,1,0,0,0,66,69,1,0,0,0,67,65,1,0,0,0,67,68,1,0,0,
+		0,68,70,1,0,0,0,69,67,1,0,0,0,70,71,5,3,0,0,71,7,1,0,0,0,72,73,5,4,0,0,
+		73,74,5,28,0,0,74,9,1,0,0,0,75,76,5,5,0,0,76,77,5,28,0,0,77,11,1,0,0,0,
+		78,79,5,6,0,0,79,80,5,28,0,0,80,13,1,0,0,0,81,82,5,7,0,0,82,83,5,28,0,
+		0,83,15,1,0,0,0,84,85,5,8,0,0,85,86,5,28,0,0,86,17,1,0,0,0,87,88,5,9,0,
+		0,88,89,5,28,0,0,89,19,1,0,0,0,90,92,5,10,0,0,91,93,3,22,11,0,92,91,1,
+		0,0,0,93,94,1,0,0,0,94,92,1,0,0,0,94,95,1,0,0,0,95,21,1,0,0,0,96,97,5,
+		11,0,0,97,107,5,28,0,0,98,99,5,12,0,0,99,107,5,26,0,0,100,101,5,13,0,0,
+		101,107,5,28,0,0,102,103,5,14,0,0,103,107,5,28,0,0,104,105,5,15,0,0,105,
+		107,5,28,0,0,106,96,1,0,0,0,106,98,1,0,0,0,106,100,1,0,0,0,106,102,1,0,
+		0,0,106,104,1,0,0,0,107,23,1,0,0,0,108,109,5,16,0,0,109,110,5,28,0,0,110,
+		25,1,0,0,0,111,113,3,28,14,0,112,111,1,0,0,0,113,116,1,0,0,0,114,112,1,
+		0,0,0,114,115,1,0,0,0,115,27,1,0,0,0,116,114,1,0,0,0,117,118,5,33,0,0,
+		118,123,5,31,0,0,119,122,3,34,17,0,120,122,3,30,15,0,121,119,1,0,0,0,121,
+		120,1,0,0,0,122,125,1,0,0,0,123,121,1,0,0,0,123,124,1,0,0,0,124,29,1,0,
+		0,0,125,123,1,0,0,0,126,127,5,35,0,0,127,131,5,31,0,0,128,130,3,34,17,
+		0,129,128,1,0,0,0,130,133,1,0,0,0,131,129,1,0,0,0,131,132,1,0,0,0,132,
+		31,1,0,0,0,133,131,1,0,0,0,134,136,3,34,17,0,135,134,1,0,0,0,136,137,1,
+		0,0,0,137,135,1,0,0,0,137,138,1,0,0,0,138,33,1,0,0,0,139,141,5,17,0,0,
+		140,139,1,0,0,0,140,141,1,0,0,0,141,142,1,0,0,0,142,143,5,31,0,0,143,144,
+		5,18,0,0,144,145,5,31,0,0,145,35,1,0,0,0,14,41,46,49,55,65,67,94,106,114,
+		121,123,131,137,140
 	};
 
 	public static readonly ATN _ATN =

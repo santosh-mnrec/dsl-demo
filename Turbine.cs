@@ -1,6 +1,6 @@
 namespace Orsted.WindTurbine.DSL
 {
-    public class Turbine
+    public class Turbinex
 {
     public string Defect { get; set; }
     public string Location { get; set; }

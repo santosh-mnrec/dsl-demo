@@ -1,23 +1,54 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Orsted.WindTurbine.DSL;
 
-namespace Orsted.WindTurbine.DSL
+var builder = WebApplication.CreateBuilder(args); ;
+
+
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.MapPost("/convert", async context =>
+{
+    using var reader = new StreamReader(context.Request.Body);
+    string turbineInput = await reader.ReadToEndAsync();
+    Console.WriteLine(turbineInput);
     
+    var parserHelper = new TurbineParserHelper();
+    var turbine = parserHelper.ParseTurbine(turbineInput);
 
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            string turbineInput = File.ReadAllText("input.txt");
+    TurbineVisitor visitor = new();
+    var parsedTurbine = visitor.Visit(turbine);
 
-            var parserHelper = new TurbineParserHelper();
-            var turbine = parserHelper.ParseTurbine(turbineInput);
+    var data = parserHelper.ConvertToJSON(turbineInput); // Assuming ConvertToJSON takes a parsed turbine object
+    
+    
+    context.Response.ContentType = "application/json";
+    await context.Response.WriteAsync(data.ToString());
+})
 
-            TurbineVisitor visitor = new();
-            var parsedTurbine = visitor.Visit(turbine);
 
-            string json = JsonConvert.SerializeObject(parsedTurbine, Formatting.Indented);
-            Console.WriteLine(json);
-        }
-    }
+.WithOpenApi();
+
+app.Run();
+
+record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+{
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

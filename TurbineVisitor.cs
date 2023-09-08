@@ -1,152 +1,207 @@
-using System;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Misc;
-using System;
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Orsted.WindTurbine.DSL.Extensions;
 
-// Define the classes representing the elements of the grammar
-
-
-public class Turbine
+public class TurbineVisitor : TurbineBaseVisitor<JObject>
 {
-    public List<Defect> Defects { get; set; }
-    public Reporter Reporter { get; set; }
-    public Details Details { get; set; }
-    public Summary Summary { get; set; }
-}
-
-public class Defect
-{
-    public string Text { get; set; }
-    public string Site { get; set; }
-    public string Postition { get; set; }
-    public string Location { get; set; }
-    public string DefectType { get; set; }
-    public string Severity { get; set; }
-    public string Actions { get; set; }
-    public string Comment { get; set; }
-}
-
-public class Reporter
-{
-    public string Name { get; set; }
-    public DateTime? Date { get; set; }
-    public TimeSpan? Time { get; set; }
-}
-
-public class Details
-{
-    public string Text { get; set; }
-}
-
-public class Summary
-{
-    public string Text { get; set; }
-}
-
-public class TurbineVisitor : TurbineBaseVisitor<Turbine>
-{
-      Turbine turbine = new Turbine();
-    public override Turbine VisitTurbine([NotNull] TurbineParser.TurbineContext context)
+    public override JObject VisitTurbine(TurbineParser.TurbineContext context)
     {
-      
+        JObject jsonObject = new JObject();
 
-        // Visit and construct defects
-        turbine.Defects = new List<Defect>();
-        foreach (var defectContext in context.defect())
+        foreach (var sectionContext in context.section())
         {
-           VisitDefect(defectContext);
-            
+            var sectionObject = Visit(sectionContext);
+            jsonObject.Merge(sectionObject, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
         }
 
-        // Visit and construct reporter if available
-        if (context.reporter() != null)
+
+        return jsonObject;
+    }
+    public override JObject VisitDefectStatement(TurbineParser.DefectStatementContext context)
+    {
+        JObject defectObject = new JObject();
+
+        // Check if there's a reporterClause and add it to the defectObject
+        if (context.reporterClause() != null)
         {
-           VisitReporter(context.reporter());
+            defectObject["Turbine"] = new JObject
+            {
+                ["reporter"] = context.reporterClause().STRING().ToString().Clean()
+            };
         }
 
-        // Visit and construct details if available
-        if (context.details() != null)
+        // Handle the rest of the defectBlock properties
+        JObject defectBlockObject = new JObject();
+        foreach (var propertyContext in context.defectBlock().children)
         {
-            VisitDetails(context.details());
+            if (propertyContext is TurbineParser.DescriptionPropertyContext)
+            {
+                defectBlockObject["Description"] = propertyContext.GetChild(1).ToString().Clean();
+            }
+            else if (propertyContext is TurbineParser.SitePropertyContext)
+            {
+                defectBlockObject["Site"] = propertyContext.GetChild(1).ToString().Clean();
+            }
+            else if (propertyContext is TurbineParser.PositionPropertyContext)
+            {
+                defectBlockObject["Position"] = propertyContext.GetChild(1).ToString().Clean();
+            }
+            else if (propertyContext is TurbineParser.LocationPropertyContext)
+            {
+                defectBlockObject["Location"] = propertyContext.GetChild(1).ToString().Clean();
+            }
+            else if (propertyContext is TurbineParser.DatePropertyContext)
+            {
+                defectBlockObject["Date"] = propertyContext.GetChild(1).ToString().Clean();
+            }
+            else if (propertyContext is TurbineParser.TimePropertyContext)
+            {
+                defectBlockObject["Time"] = propertyContext.GetChild(1).ToString().Clean();
+            }
         }
 
-        // Visit and construct summary if available
-        if (context.summary() != null)
-        {
-            VisitSummary(context.summary());
-        }
+        defectObject["Turbine"]["Defect"] = defectBlockObject;
 
-        return turbine;
+        return defectObject;
     }
 
-    public override Turbine VisitDefect([NotNull] TurbineParser.DefectContext context)
+
+
+
+    public override JObject VisitSection(TurbineParser.SectionContext context)
     {
-        Defect defect = new Defect();
-        defect.Text = context.TEXT().ToString();
-        defect.Site = context.site(0).ToString();
-        defect.Postition = context.postition().TEXT().ToString();
+        JObject sectionObject = new JObject();
 
-        // Visit and construct optional elements
-        if (context.location() != null)
+        // Check if the section contains a defectStatement and handle it
+        if (context.defectStatement() != null)
         {
-            defect.Location = context.location().GetText();
-        }
-        if (context.defectType() != null)
-        {
-            defect.DefectType = context.defectType().GetText();
-        }
-        if (context.severity() != null)
-        {
-            defect.Severity = context.severity().GetText();
-        }
-        if (context.actions() != null)
-        {
-            defect.Actions = context.actions().TEXT().ToString();
-        }
-        if (context.comment() != null)
-        {
-            defect.Comment = context.comment().STRING().ToString();
+            sectionObject.Merge(Visit(context.defectStatement()));
         }
 
-        turbine.Defects.Add(defect);
-        return turbine;
+        // Check if the section contains a keyValueSection and handle it
+        if (context.keyValueSection() != null)
+        {
+            sectionObject.Merge(Visit(context.keyValueSection()));
+        }
+
+        // Check if the section contains objectSections and handle it
+        if (context.objectSections() != null)
+        {
+            sectionObject.Merge(Visit(context.objectSections()));
+        }
+
+
+        return sectionObject;
+    }
+    public override JObject VisitReporterClause(TurbineParser.ReporterClauseContext context)
+    {
+        JObject reporterObject = new JObject();
+        reporterObject["Reporter"] = context.STRING().ToString().Clean();
+        return reporterObject;
     }
 
-    public override Turbine VisitReporter([NotNull] TurbineParser.ReporterContext context)
+    public override JObject VisitObjectSections(TurbineParser.ObjectSectionsContext context)
     {
-        Reporter reporter = new Reporter();
-        reporter.Name = context.STRING().ToString();
+        JObject jsonObject = new JObject();
 
-        // // Visit and construct optional elements
-        // if (context.DATE() != null)
-        // {
-        //     string dateStr = context.DATE().ToString();
-        //     reporter.Date = DateTime.ParseExact(dateStr, "MM-dd-yyyy", null);
-        // }
-        // if (context.TIME() != null)
-        // {
-        //     string timeStr = context.TIME().ToString();
-        //     reporter.Time = TimeSpan.ParseExact(timeStr, "hh\\:mm", null);
-        // }
+        string currentComponentName = null;
+        JObject currentComponent = null;
 
-        turbine.Reporter=reporter;
-        return turbine;
+        foreach (var objectSectionContext in context.objectSection())
+        {
+            if (objectSectionContext.GetText().StartsWith("#"))
+            {
+                currentComponentName = objectSectionContext.GetChild(1).GetText();
+                currentComponent = new JObject();
+                jsonObject[currentComponentName] = currentComponent;
+            }
+
+            foreach (var keyValuePropertyContext in objectSectionContext.keyValueProperty())
+            {
+                var key = keyValuePropertyContext.TEXT(0).ToString();
+                var value = keyValuePropertyContext.TEXT(1).ToString();
+
+                if (currentComponent != null)
+                {
+                    currentComponent[key] = value;
+                }
+            }
+
+            foreach (var childContext in objectSectionContext.child())
+            {
+                var childProperties = new JObject();
+                var chidPropName = childContext.GetChild(1).GetText();
+
+                foreach (var keyValuePropertyContext in childContext.keyValueProperty())
+                {
+                    var key = keyValuePropertyContext.TEXT(0).ToString().Clean();
+                    childProperties[key] = keyValuePropertyContext.TEXT(1).ToString().Clean();
+                }
+
+                if (currentComponent != null)
+                {
+                    currentComponent[chidPropName] = childProperties;
+                }
+            }
+        }
+
+        return jsonObject;
     }
 
-    public override Turbine VisitDetails([NotNull] TurbineParser.DetailsContext context)
+
+
+
+
+
+    public override JObject VisitObjectSection(TurbineParser.ObjectSectionContext context)
     {
-        Details details = new Details();
-        details.Text = context.STRING().ToString();
-       turbine.Details=details;
-       return turbine;
+        JObject sectionObject = new JObject();
+
+        foreach (var childContext in context.child())
+        {
+            var childObject = Visit(childContext);
+
+            // Check if the childObject is a properties section
+            if (childContext.GetText().StartsWith("--"))
+            {
+                var propertiesObject = new JObject();
+                sectionObject["Properties"] = propertiesObject;
+                propertiesObject.Merge(childObject);
+            }
+            else
+            {
+                sectionObject.Merge(childObject);
+            }
+        }
+
+        return sectionObject;
     }
 
-    public override Turbine VisitSummary([NotNull] TurbineParser.SummaryContext context)
+
+    public override JObject VisitChild(TurbineParser.ChildContext context)
     {
-        Summary summary = new Summary();
-        summary.Text = context.STRING().ToString();
-        turbine.Summary=summary;
-        return turbine;
+        JObject childObject = new JObject();
+
+        foreach (var keyValuePropertyContext in context.keyValueProperty())
+        {
+            var keyValuePropertyObject = Visit(keyValuePropertyContext);
+            childObject.Merge(keyValuePropertyObject);
+        }
+
+        return childObject;
     }
+
+    public override JObject VisitKeyValueProperty(TurbineParser.KeyValuePropertyContext context)
+    {
+        JObject keyValuePropertyObject = new JObject();
+
+        string key = context.TEXT(0).ToString().Clean();
+        string value = context.TEXT(1).ToString().Clean();
+
+        keyValuePropertyObject[key] = value;
+
+        return keyValuePropertyObject;
+    }
+
+
+
 }

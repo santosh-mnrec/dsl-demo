@@ -1,77 +1,77 @@
 grammar Turbine;
 
+turbine: section (STATEMENT_SEP 
+section)* ;
 
-
-turbine: defect* reporter? 
-(details | summary)?;
-defect:
-    'There is a' TEXT 'found at'
-     site 'and' postition
-    location (AT_SITE site)?
-    (defectType)?
-    (severity)?
-    (actions)?
-    (comment)?
-  ;
-
-defectType: 'type:' (TEXT | STRING);
-
-
-severity: 'severity:' (TEXT | STRING);
-actions: 'actions:' TEXT;
-comment: 'comment:' STRING;
-location: ('external' | 'internal') 
-
-TEXT*;
-site: TEXT NUMBER;
-postition:TEXT;
-timezone: ('UTC' | 'GMT' | 'EST' | 'PST');
-
-reporter: 'reported by:' STRING
-    ('date:' DATE)?
-    ('time:' TIME)?
+section:
+    defectStatement
+  
+    | keyValueSection?
+    | objectSections
+ 
     ;
+defectStatement:
+    'Create Defect with' defectBlock ('where' reporterClause)?;
 
-details: 'Details:' STRING;
-summary: 'Summary:' STRING;
+defectBlock:
+    '{'
+        (descriptionProperty | siteProperty | positionProperty | locationProperty | dateProperty | timeProperty | detailsProperty)*
+    '}';
 
-YEAR: NUMBER NUMBER NUMBER NUMBER;
-MONTH: JAN | FEB | MAR | APR | MAY | JUN | JUL | AUG | SEP | OCT | NOV | DEC;
+descriptionProperty: 'Description' STRING;
+siteProperty: 'Site' STRING;
+positionProperty: 'Position' STRING;
+locationProperty: 'Location' STRING;
+dateProperty: 'Date' STRING; // You may want to refine the DATE format as needed
+timeProperty: 'Time' STRING; // You may want to refine the TIME format as needed
+detailsProperty: 'Details:' detailProperty+;
 
-THERE_IS_A: 'There is a';
-FOUND_ON: 'found on';
-AT_SITE: 'at site';
-AT_DATE: 'at date';
-AT_TIME: 'at time';
+detailProperty:
+    'Type' STRING
+    | 'Severity' NUMBER
+    | 'Actions' STRING
+    | 'Comment' STRING
+    | 'Failure Mode' STRING;
 
-SEPARATOR: '-';
-COLON: ':';
+reporterClause:
+    'Reporter' STRING;
+objectSections: objectSection*;
 
-TEXT: [a-zA-Z]+;
-STRING: '"' (ESC | SAFECODEPOINT)* '"';
-DATE: NUMBER NUMBER 
-SEPARATOR MONTH SEPARATOR NUMBER;
-TIME: NUMBER NUMBER COLON NUMBER NUMBER;
+objectSection: '#' TEXT 
+(keyValueProperty | child)*;
 
-JAN: 'JAN';
-FEB: 'FEB';
-MAR: 'MAR';
-APR: 'APR';
-MAY: 'MAY';
-JUN: 'JUN';
-JUL: 'JUL';
-AUG: 'AUG';
-SEP: 'SEP';
-OCT: 'OCT';
-NOV: 'NOV';
-DEC: 'DEC';
 
+child: '--' TEXT
+(keyValueProperty)*;
+
+keyValueSection: keyValueProperty+;
+keyValueProperty:'+'? TEXT '=' TEXT;
+
+
+
+CREATE: 'Create defect';
+FOUND: 'for site';
+AND: 'and';
+
+WHERE: 'where';
+WITH: 'details are';
+DATE: NUMBER '-' MONTH '-' NUMBER;
+TIME: NUMBER ':' NUMBER;
 NUMBER: [0-9]+;
+MONTH: 'JAN' | 'FEB' | 'MAR' | 'APR' | 'MAY' | 'JUN' | 'JUL' | 'AUG' | 'SEP' | 'OCT' | 'NOV' | 'DEC';
+STRING: '"' (ESC | SAFECODEPOINT)* '"';
+SEPARATOR: '-';
+STATEMENT_SEP: ';;;';
+TEXT: [a-zA-Z0-9]+;
+COLON: ':';
+PARENT:'#';
+CHILD: '~';
+SUBCHILD: '--';
+MULTI_LEVEL: '---';
 
 
 fragment ESC: '\\' (["\\/bfnrt] | UNICODE);
 fragment UNICODE: 'u' HEX HEX HEX HEX;
 fragment HEX: [0-9a-fA-F];
 fragment SAFECODEPOINT: ~["\\\u0000-\u001F];
-
 WS: [ \t\r\n]+ -> channel(HIDDEN);

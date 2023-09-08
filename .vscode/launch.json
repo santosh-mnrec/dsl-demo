@@ -4,6 +4,17 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+        {
+            "type": "antlr-debug",
+            "request": "launch",
+            "name": "Debug Current Grammar",
+            "input": "${workspaceFolder}/example2.txt",
+            "grammar": "${workspaceFolder}/Turbine.g4",
+           
+            "startRule": "turbine",
+            "visualParseTree": true
+        },
         {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",

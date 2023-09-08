@@ -1,0 +1,24 @@
+CREATE DEFECT
+  DESCRIPTION "Critical-issue-with-turbine"
+  SITE SiteA
+  POSITION NorthTower
+  LOCATION Floor5
+  DETAILS ARE
+    TYPE Mechanical
+    SEVERITY High
+    ACTIONS A
+    COMMENT "A"
+;;;
+reported by:"John-Doe"
+date:12-JAN-06
+time:14:30
+;;;
+
+#ComponentA
++Type=Gearbox
++Manufacturer=ABC
++Name=Santosh
+--Properties
+    +Weight=X
+    +Temperature=Y
+
