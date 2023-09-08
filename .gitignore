@@ -28,3 +28,10 @@
 
 # Ignore downloaded temporaries create by _scripts/get-antlr.ps1
 antlr4-*-complete.jar
+# Ignore Orsted.WindTurbine.DSL project build artifacts
+obj/
+*.csproj.AssemblyReference.cache
+*.nuget.dgspec.json
+*.nuget.g.props
+project.assets.json
+project.nuget.cache
