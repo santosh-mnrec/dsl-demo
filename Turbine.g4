@@ -5,11 +5,13 @@ section)* ;
 
 section:
     defectSection
-    | reporterSection
-    | detailsSection 
-    | summarySection
-    | keyValueSection
-    | objectSections;
+    | reporterSection?
+    | detailsSection? 
+    | summarySection?
+    | keyValueSection?
+    | objectSections
+ 
+    ;
 
 defectSection: 'CREATE DEFECT' defectDescription siteDefect positionDefect locationDefect detailsSection;
 
@@ -26,23 +28,17 @@ reporterSection: 'reported by:' STRING ('date:' DATE)? ('time:' TIME)?;
 
 summarySection: 'Summary:' STRING;
 
-objectSections: objectSection+;
+objectSections: objectSection*;
 
-objectSection: sectionHeader tree;
+objectSection: '#' TEXT 
+(keyValueProperty | child)*;
 
-tree: (subSection | properties)*;
 
-sectionHeader: SEP TEXT?;
-
-subSection: MULTI_LEVEL TEXT?;
-
-properties: (child | subChild)+;
-
-child: MULTI_LEVEL keyValueSection;
-subChild: '+' keyValueSection;
+child: '--' TEXT
+(keyValueProperty)*;
 
 keyValueSection: keyValueProperty+;
-keyValueProperty: TEXT '=' TEXT;
+keyValueProperty:'+'? TEXT '=' TEXT;
 
 
 
@@ -61,9 +57,11 @@ SEPARATOR: '-';
 STATEMENT_SEP: ';;;';
 TEXT: [a-zA-Z0-9]+;
 COLON: ':';
-
+PARENT:'#';
+CHILD: '~';
+SUBCHILD: '--';
 MULTI_LEVEL: '---';
-SEP: '--';
+
 
 fragment ESC: '\\' (["\\/bfnrt] | UNICODE);
 fragment UNICODE: 'u' HEX HEX HEX HEX;

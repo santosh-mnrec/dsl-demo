@@ -171,46 +171,6 @@ public interface ITurbineListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitObjectSection([NotNull] TurbineParser.ObjectSectionContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.tree"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterTree([NotNull] TurbineParser.TreeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.tree"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitTree([NotNull] TurbineParser.TreeContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.sectionHeader"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSectionHeader([NotNull] TurbineParser.SectionHeaderContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.sectionHeader"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSectionHeader([NotNull] TurbineParser.SectionHeaderContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.subSection"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSubSection([NotNull] TurbineParser.SubSectionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.subSection"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSubSection([NotNull] TurbineParser.SubSectionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.properties"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterProperties([NotNull] TurbineParser.PropertiesContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.properties"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitProperties([NotNull] TurbineParser.PropertiesContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.child"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -220,16 +180,6 @@ public interface ITurbineListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitChild([NotNull] TurbineParser.ChildContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TurbineParser.subChild"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSubChild([NotNull] TurbineParser.SubChildContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TurbineParser.subChild"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSubChild([NotNull] TurbineParser.SubChildContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TurbineParser.keyValueSection"/>.
 	/// </summary>

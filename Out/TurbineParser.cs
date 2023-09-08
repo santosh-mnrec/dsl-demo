@@ -40,20 +40,18 @@ public partial class TurbineParser : Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, CREATE=21, FOUND=22, AND=23, WHERE=24, WITH=25, 
 		DATE=26, TIME=27, NUMBER=28, MONTH=29, STRING=30, SEPARATOR=31, STATEMENT_SEP=32, 
-		TEXT=33, COLON=34, MULTI_LEVEL=35, SEP=36, WS=37;
+		TEXT=33, COLON=34, PARENT=35, CHILD=36, SUBCHILD=37, MULTI_LEVEL=38, WS=39;
 	public const int
 		RULE_turbine = 0, RULE_section = 1, RULE_defectSection = 2, RULE_defectDescription = 3, 
 		RULE_siteDefect = 4, RULE_positionDefect = 5, RULE_locationDefect = 6, 
 		RULE_detailsSection = 7, RULE_detail = 8, RULE_timezone = 9, RULE_reporterSection = 10, 
 		RULE_summarySection = 11, RULE_objectSections = 12, RULE_objectSection = 13, 
-		RULE_tree = 14, RULE_sectionHeader = 15, RULE_subSection = 16, RULE_properties = 17, 
-		RULE_child = 18, RULE_subChild = 19, RULE_keyValueSection = 20, RULE_keyValueProperty = 21;
+		RULE_child = 14, RULE_keyValueSection = 15, RULE_keyValueProperty = 16;
 	public static readonly string[] ruleNames = {
 		"turbine", "section", "defectSection", "defectDescription", "siteDefect", 
 		"positionDefect", "locationDefect", "detailsSection", "detail", "timezone", 
 		"reporterSection", "summarySection", "objectSections", "objectSection", 
-		"tree", "sectionHeader", "subSection", "properties", "child", "subChild", 
-		"keyValueSection", "keyValueProperty"
+		"child", "keyValueSection", "keyValueProperty"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -61,13 +59,15 @@ public partial class TurbineParser : Parser {
 		"'DETAILS ARE'", "'TYPE'", "'SEVERITY'", "'ACTIONS'", "'COMMENT'", "'UTC'", 
 		"'GMT'", "'EST'", "'PST'", "'reported by:'", "'date:'", "'time:'", "'Summary:'", 
 		"'+'", "'='", "'Create defect'", "'for site'", "'and'", "'where'", "'details are'", 
-		null, null, null, null, null, "'-'", "';;;'", null, "':'", "'---'", "'--'"
+		null, null, null, null, null, "'-'", "';;;'", null, "':'", "'#'", "'~'", 
+		"'--'", "'---'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, "CREATE", "FOUND", 
 		"AND", "WHERE", "WITH", "DATE", "TIME", "NUMBER", "MONTH", "STRING", "SEPARATOR", 
-		"STATEMENT_SEP", "TEXT", "COLON", "MULTI_LEVEL", "SEP", "WS"
+		"STATEMENT_SEP", "TEXT", "COLON", "PARENT", "CHILD", "SUBCHILD", "MULTI_LEVEL", 
+		"WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -143,21 +143,21 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 44;
+			State = 34;
 			section();
-			State = 49;
+			State = 39;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==STATEMENT_SEP) {
 				{
 				{
-				State = 45;
+				State = 35;
 				Match(STATEMENT_SEP);
-				State = 46;
+				State = 36;
 				section();
 				}
 				}
-				State = 51;
+				State = 41;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -220,54 +220,85 @@ public partial class TurbineParser : Parser {
 	public SectionContext section() {
 		SectionContext _localctx = new SectionContext(Context, State);
 		EnterRule(_localctx, 2, RULE_section);
+		int _la;
 		try {
-			State = 58;
+			State = 56;
 			ErrorHandler.Sync(this);
-			switch (TokenStream.LA(1)) {
-			case T__0:
+			switch ( Interpreter.AdaptivePredict(TokenStream,5,Context) ) {
+			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 52;
+				State = 42;
 				defectSection();
 				}
 				break;
-			case T__14:
+			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 53;
-				reporterSection();
+				State = 44;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==T__14) {
+					{
+					State = 43;
+					reporterSection();
+					}
+				}
+
 				}
 				break;
-			case T__5:
+			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 54;
-				detailsSection();
+				State = 47;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==T__5) {
+					{
+					State = 46;
+					detailsSection();
+					}
+				}
+
 				}
 				break;
-			case T__17:
+			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 55;
-				summarySection();
+				State = 50;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==T__17) {
+					{
+					State = 49;
+					summarySection();
+					}
+				}
+
 				}
 				break;
-			case TEXT:
+			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 56;
-				keyValueSection();
+				State = 53;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==T__18 || _la==TEXT) {
+					{
+					State = 52;
+					keyValueSection();
+					}
+				}
+
 				}
 				break;
-			case SEP:
+			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 57;
+				State = 55;
 				objectSections();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -327,17 +358,17 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 60;
+			State = 58;
 			Match(T__0);
-			State = 61;
+			State = 59;
 			defectDescription();
-			State = 62;
+			State = 60;
 			siteDefect();
-			State = 63;
+			State = 61;
 			positionDefect();
-			State = 64;
+			State = 62;
 			locationDefect();
-			State = 65;
+			State = 63;
 			detailsSection();
 			}
 		}
@@ -384,9 +415,9 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 67;
+			State = 65;
 			Match(T__1);
-			State = 68;
+			State = 66;
 			Match(STRING);
 			}
 		}
@@ -433,9 +464,9 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 70;
+			State = 68;
 			Match(T__2);
-			State = 71;
+			State = 69;
 			Match(TEXT);
 			}
 		}
@@ -482,9 +513,9 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 73;
+			State = 71;
 			Match(T__3);
-			State = 74;
+			State = 72;
 			Match(TEXT);
 			}
 		}
@@ -531,9 +562,9 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 76;
+			State = 74;
 			Match(T__4);
-			State = 77;
+			State = 75;
 			Match(TEXT);
 			}
 		}
@@ -586,19 +617,19 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 79;
+			State = 77;
 			Match(T__5);
-			State = 81;
+			State = 79;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 80;
+				State = 78;
 				detail();
 				}
 				}
-				State = 83;
+				State = 81;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 1920L) != 0 );
@@ -646,16 +677,16 @@ public partial class TurbineParser : Parser {
 		DetailContext _localctx = new DetailContext(Context, State);
 		EnterRule(_localctx, 16, RULE_detail);
 		try {
-			State = 93;
+			State = 91;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case T__6:
 				EnterOuterAlt(_localctx, 1);
 				{
 				{
-				State = 85;
+				State = 83;
 				Match(T__6);
-				State = 86;
+				State = 84;
 				Match(TEXT);
 				}
 				}
@@ -664,9 +695,9 @@ public partial class TurbineParser : Parser {
 				EnterOuterAlt(_localctx, 2);
 				{
 				{
-				State = 87;
+				State = 85;
 				Match(T__7);
-				State = 88;
+				State = 86;
 				Match(TEXT);
 				}
 				}
@@ -675,9 +706,9 @@ public partial class TurbineParser : Parser {
 				EnterOuterAlt(_localctx, 3);
 				{
 				{
-				State = 89;
+				State = 87;
 				Match(T__8);
-				State = 90;
+				State = 88;
 				Match(TEXT);
 				}
 				}
@@ -686,9 +717,9 @@ public partial class TurbineParser : Parser {
 				EnterOuterAlt(_localctx, 4);
 				{
 				{
-				State = 91;
+				State = 89;
 				Match(T__9);
-				State = 92;
+				State = 90;
 				Match(STRING);
 				}
 				}
@@ -740,7 +771,7 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 95;
+			State = 93;
 			_la = TokenStream.LA(1);
 			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 30720L) != 0) ) {
 			ErrorHandler.RecoverInline(this);
@@ -797,30 +828,30 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 97;
+			State = 95;
 			Match(T__14);
-			State = 98;
+			State = 96;
 			Match(STRING);
-			State = 101;
+			State = 99;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==T__15) {
 				{
-				State = 99;
+				State = 97;
 				Match(T__15);
-				State = 100;
+				State = 98;
 				Match(DATE);
 				}
 			}
 
-			State = 105;
+			State = 103;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==T__16) {
 				{
-				State = 103;
+				State = 101;
 				Match(T__16);
-				State = 104;
+				State = 102;
 				Match(TIME);
 				}
 			}
@@ -870,9 +901,9 @@ public partial class TurbineParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 107;
+			State = 105;
 			Match(T__17);
-			State = 108;
+			State = 106;
 			Match(STRING);
 			}
 		}
@@ -928,17 +959,17 @@ public partial class TurbineParser : Parser {
 			State = 111;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			do {
+			while (_la==PARENT) {
 				{
 				{
-				State = 110;
+				State = 108;
 				objectSection();
 				}
 				}
 				State = 113;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( _la==SEP );
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -953,11 +984,19 @@ public partial class TurbineParser : Parser {
 	}
 
 	public partial class ObjectSectionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public SectionHeaderContext sectionHeader() {
-			return GetRuleContext<SectionHeaderContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARENT() { return GetToken(TurbineParser.PARENT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext[] keyValueProperty() {
+			return GetRuleContexts<KeyValuePropertyContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public TreeContext tree() {
-			return GetRuleContext<TreeContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext keyValueProperty(int i) {
+			return GetRuleContext<KeyValuePropertyContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ChildContext[] child() {
+			return GetRuleContexts<ChildContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ChildContext child(int i) {
+			return GetRuleContext<ChildContext>(i);
 		}
 		public ObjectSectionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -986,93 +1025,40 @@ public partial class TurbineParser : Parser {
 	public ObjectSectionContext objectSection() {
 		ObjectSectionContext _localctx = new ObjectSectionContext(Context, State);
 		EnterRule(_localctx, 26, RULE_objectSection);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 115;
-			sectionHeader();
-			State = 116;
-			tree();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class TreeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public SubSectionContext[] subSection() {
-			return GetRuleContexts<SubSectionContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public SubSectionContext subSection(int i) {
-			return GetRuleContext<SubSectionContext>(i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public PropertiesContext[] properties() {
-			return GetRuleContexts<PropertiesContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public PropertiesContext properties(int i) {
-			return GetRuleContext<PropertiesContext>(i);
-		}
-		public TreeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_tree; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterTree(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitTree(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTree(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public TreeContext tree() {
-		TreeContext _localctx = new TreeContext(Context, State);
-		EnterRule(_localctx, 28, RULE_tree);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 122;
+			State = 114;
+			Match(PARENT);
+			State = 115;
+			Match(TEXT);
+			State = 120;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==T__18 || _la==MULTI_LEVEL) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 146029412352L) != 0) {
 				{
-				State = 120;
+				State = 118;
 				ErrorHandler.Sync(this);
-				switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
-				case 1:
+				switch (TokenStream.LA(1)) {
+				case T__18:
+				case TEXT:
 					{
-					State = 118;
-					subSection();
+					State = 116;
+					keyValueProperty();
 					}
 					break;
-				case 2:
+				case SUBCHILD:
 					{
-					State = 119;
-					properties();
+					State = 117;
+					child();
 					}
 					break;
+				default:
+					throw new NoViableAltException(this);
 				}
 				}
-				State = 124;
+				State = 122;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1089,219 +1075,14 @@ public partial class TurbineParser : Parser {
 		return _localctx;
 	}
 
-	public partial class SectionHeaderContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SEP() { return GetToken(TurbineParser.SEP, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		public SectionHeaderContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_sectionHeader; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSectionHeader(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSectionHeader(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSectionHeader(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public SectionHeaderContext sectionHeader() {
-		SectionHeaderContext _localctx = new SectionHeaderContext(Context, State);
-		EnterRule(_localctx, 30, RULE_sectionHeader);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 125;
-			Match(SEP);
-			State = 127;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==TEXT) {
-				{
-				State = 126;
-				Match(TEXT);
-				}
-			}
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class SubSectionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MULTI_LEVEL() { return GetToken(TurbineParser.MULTI_LEVEL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
-		public SubSectionContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_subSection; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSubSection(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSubSection(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSubSection(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public SubSectionContext subSection() {
-		SubSectionContext _localctx = new SubSectionContext(Context, State);
-		EnterRule(_localctx, 32, RULE_subSection);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 129;
-			Match(MULTI_LEVEL);
-			State = 131;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==TEXT) {
-				{
-				State = 130;
-				Match(TEXT);
-				}
-			}
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class PropertiesContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ChildContext[] child() {
-			return GetRuleContexts<ChildContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ChildContext child(int i) {
-			return GetRuleContext<ChildContext>(i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public SubChildContext[] subChild() {
-			return GetRuleContexts<SubChildContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public SubChildContext subChild(int i) {
-			return GetRuleContext<SubChildContext>(i);
-		}
-		public PropertiesContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_properties; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterProperties(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitProperties(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitProperties(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public PropertiesContext properties() {
-		PropertiesContext _localctx = new PropertiesContext(Context, State);
-		EnterRule(_localctx, 34, RULE_properties);
-		try {
-			int _alt;
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 135;
-			ErrorHandler.Sync(this);
-			_alt = 1;
-			do {
-				switch (_alt) {
-				case 1:
-					{
-					State = 135;
-					ErrorHandler.Sync(this);
-					switch (TokenStream.LA(1)) {
-					case MULTI_LEVEL:
-						{
-						State = 133;
-						child();
-						}
-						break;
-					case T__18:
-						{
-						State = 134;
-						subChild();
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
-				}
-				State = 137;
-				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,12,Context);
-			} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
 	public partial class ChildContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MULTI_LEVEL() { return GetToken(TurbineParser.MULTI_LEVEL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public KeyValueSectionContext keyValueSection() {
-			return GetRuleContext<KeyValueSectionContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUBCHILD() { return GetToken(TurbineParser.SUBCHILD, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXT() { return GetToken(TurbineParser.TEXT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext[] keyValueProperty() {
+			return GetRuleContexts<KeyValuePropertyContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KeyValuePropertyContext keyValueProperty(int i) {
+			return GetRuleContext<KeyValuePropertyContext>(i);
 		}
 		public ChildContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1329,65 +1110,31 @@ public partial class TurbineParser : Parser {
 	[RuleVersion(0)]
 	public ChildContext child() {
 		ChildContext _localctx = new ChildContext(Context, State);
-		EnterRule(_localctx, 36, RULE_child);
+		EnterRule(_localctx, 28, RULE_child);
 		try {
+			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 139;
-			Match(MULTI_LEVEL);
-			State = 140;
-			keyValueSection();
+			State = 123;
+			Match(SUBCHILD);
+			State = 124;
+			Match(TEXT);
+			State = 128;
+			ErrorHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(TokenStream,13,Context);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					State = 125;
+					keyValueProperty();
+					}
+					} 
+				}
+				State = 130;
+				ErrorHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(TokenStream,13,Context);
 			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class SubChildContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public KeyValueSectionContext keyValueSection() {
-			return GetRuleContext<KeyValueSectionContext>(0);
-		}
-		public SubChildContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_subChild; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.EnterSubChild(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITurbineListener typedListener = listener as ITurbineListener;
-			if (typedListener != null) typedListener.ExitSubChild(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ITurbineVisitor<TResult> typedVisitor = visitor as ITurbineVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSubChild(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public SubChildContext subChild() {
-		SubChildContext _localctx = new SubChildContext(Context, State);
-		EnterRule(_localctx, 38, RULE_subChild);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 142;
-			Match(T__18);
-			State = 143;
-			keyValueSection();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1434,25 +1181,25 @@ public partial class TurbineParser : Parser {
 	[RuleVersion(0)]
 	public KeyValueSectionContext keyValueSection() {
 		KeyValueSectionContext _localctx = new KeyValueSectionContext(Context, State);
-		EnterRule(_localctx, 40, RULE_keyValueSection);
+		EnterRule(_localctx, 30, RULE_keyValueSection);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 146;
+			State = 132;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 145;
+				State = 131;
 				keyValueProperty();
 				}
 				}
-				State = 148;
+				State = 134;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( _la==TEXT );
+			} while ( _la==T__18 || _la==TEXT );
 			}
 		}
 		catch (RecognitionException re) {
@@ -1497,15 +1244,26 @@ public partial class TurbineParser : Parser {
 	[RuleVersion(0)]
 	public KeyValuePropertyContext keyValueProperty() {
 		KeyValuePropertyContext _localctx = new KeyValuePropertyContext(Context, State);
-		EnterRule(_localctx, 42, RULE_keyValueProperty);
+		EnterRule(_localctx, 32, RULE_keyValueProperty);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 150;
+			State = 137;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==T__18) {
+				{
+				State = 136;
+				Match(T__18);
+				}
+			}
+
+			State = 139;
 			Match(TEXT);
-			State = 151;
+			State = 140;
 			Match(T__19);
-			State = 152;
+			State = 141;
 			Match(TEXT);
 			}
 		}
@@ -1521,52 +1279,50 @@ public partial class TurbineParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,37,155,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,39,144,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
-		2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,21,
-		1,0,1,0,1,0,5,0,48,8,0,10,0,12,0,51,9,0,1,1,1,1,1,1,1,1,1,1,1,1,3,1,59,
-		8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,
-		6,1,6,1,6,1,7,1,7,4,7,82,8,7,11,7,12,7,83,1,8,1,8,1,8,1,8,1,8,1,8,1,8,
-		1,8,3,8,94,8,8,1,9,1,9,1,10,1,10,1,10,1,10,3,10,102,8,10,1,10,1,10,3,10,
-		106,8,10,1,11,1,11,1,11,1,12,4,12,112,8,12,11,12,12,12,113,1,13,1,13,1,
-		13,1,14,1,14,5,14,121,8,14,10,14,12,14,124,9,14,1,15,1,15,3,15,128,8,15,
-		1,16,1,16,3,16,132,8,16,1,17,1,17,4,17,136,8,17,11,17,12,17,137,1,18,1,
-		18,1,18,1,19,1,19,1,19,1,20,4,20,147,8,20,11,20,12,20,148,1,21,1,21,1,
-		21,1,21,1,21,0,0,22,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,
-		38,40,42,0,1,1,0,11,14,152,0,44,1,0,0,0,2,58,1,0,0,0,4,60,1,0,0,0,6,67,
-		1,0,0,0,8,70,1,0,0,0,10,73,1,0,0,0,12,76,1,0,0,0,14,79,1,0,0,0,16,93,1,
-		0,0,0,18,95,1,0,0,0,20,97,1,0,0,0,22,107,1,0,0,0,24,111,1,0,0,0,26,115,
-		1,0,0,0,28,122,1,0,0,0,30,125,1,0,0,0,32,129,1,0,0,0,34,135,1,0,0,0,36,
-		139,1,0,0,0,38,142,1,0,0,0,40,146,1,0,0,0,42,150,1,0,0,0,44,49,3,2,1,0,
-		45,46,5,32,0,0,46,48,3,2,1,0,47,45,1,0,0,0,48,51,1,0,0,0,49,47,1,0,0,0,
-		49,50,1,0,0,0,50,1,1,0,0,0,51,49,1,0,0,0,52,59,3,4,2,0,53,59,3,20,10,0,
-		54,59,3,14,7,0,55,59,3,22,11,0,56,59,3,40,20,0,57,59,3,24,12,0,58,52,1,
-		0,0,0,58,53,1,0,0,0,58,54,1,0,0,0,58,55,1,0,0,0,58,56,1,0,0,0,58,57,1,
-		0,0,0,59,3,1,0,0,0,60,61,5,1,0,0,61,62,3,6,3,0,62,63,3,8,4,0,63,64,3,10,
-		5,0,64,65,3,12,6,0,65,66,3,14,7,0,66,5,1,0,0,0,67,68,5,2,0,0,68,69,5,30,
-		0,0,69,7,1,0,0,0,70,71,5,3,0,0,71,72,5,33,0,0,72,9,1,0,0,0,73,74,5,4,0,
-		0,74,75,5,33,0,0,75,11,1,0,0,0,76,77,5,5,0,0,77,78,5,33,0,0,78,13,1,0,
-		0,0,79,81,5,6,0,0,80,82,3,16,8,0,81,80,1,0,0,0,82,83,1,0,0,0,83,81,1,0,
-		0,0,83,84,1,0,0,0,84,15,1,0,0,0,85,86,5,7,0,0,86,94,5,33,0,0,87,88,5,8,
-		0,0,88,94,5,33,0,0,89,90,5,9,0,0,90,94,5,33,0,0,91,92,5,10,0,0,92,94,5,
-		30,0,0,93,85,1,0,0,0,93,87,1,0,0,0,93,89,1,0,0,0,93,91,1,0,0,0,94,17,1,
-		0,0,0,95,96,7,0,0,0,96,19,1,0,0,0,97,98,5,15,0,0,98,101,5,30,0,0,99,100,
-		5,16,0,0,100,102,5,26,0,0,101,99,1,0,0,0,101,102,1,0,0,0,102,105,1,0,0,
-		0,103,104,5,17,0,0,104,106,5,27,0,0,105,103,1,0,0,0,105,106,1,0,0,0,106,
-		21,1,0,0,0,107,108,5,18,0,0,108,109,5,30,0,0,109,23,1,0,0,0,110,112,3,
-		26,13,0,111,110,1,0,0,0,112,113,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,
-		0,114,25,1,0,0,0,115,116,3,30,15,0,116,117,3,28,14,0,117,27,1,0,0,0,118,
-		121,3,32,16,0,119,121,3,34,17,0,120,118,1,0,0,0,120,119,1,0,0,0,121,124,
-		1,0,0,0,122,120,1,0,0,0,122,123,1,0,0,0,123,29,1,0,0,0,124,122,1,0,0,0,
-		125,127,5,36,0,0,126,128,5,33,0,0,127,126,1,0,0,0,127,128,1,0,0,0,128,
-		31,1,0,0,0,129,131,5,35,0,0,130,132,5,33,0,0,131,130,1,0,0,0,131,132,1,
-		0,0,0,132,33,1,0,0,0,133,136,3,36,18,0,134,136,3,38,19,0,135,133,1,0,0,
-		0,135,134,1,0,0,0,136,137,1,0,0,0,137,135,1,0,0,0,137,138,1,0,0,0,138,
-		35,1,0,0,0,139,140,5,35,0,0,140,141,3,40,20,0,141,37,1,0,0,0,142,143,5,
-		19,0,0,143,144,3,40,20,0,144,39,1,0,0,0,145,147,3,42,21,0,146,145,1,0,
-		0,0,147,148,1,0,0,0,148,146,1,0,0,0,148,149,1,0,0,0,149,41,1,0,0,0,150,
-		151,5,33,0,0,151,152,5,20,0,0,152,153,5,33,0,0,153,43,1,0,0,0,14,49,58,
-		83,93,101,105,113,120,122,127,131,135,137,148
+		2,15,7,15,2,16,7,16,1,0,1,0,1,0,5,0,38,8,0,10,0,12,0,41,9,0,1,1,1,1,3,
+		1,45,8,1,1,1,3,1,48,8,1,1,1,3,1,51,8,1,1,1,3,1,54,8,1,1,1,3,1,57,8,1,1,
+		2,1,2,1,2,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,5,1,5,1,5,1,6,1,6,
+		1,6,1,7,1,7,4,7,80,8,7,11,7,12,7,81,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,
+		8,92,8,8,1,9,1,9,1,10,1,10,1,10,1,10,3,10,100,8,10,1,10,1,10,3,10,104,
+		8,10,1,11,1,11,1,11,1,12,5,12,110,8,12,10,12,12,12,113,9,12,1,13,1,13,
+		1,13,1,13,5,13,119,8,13,10,13,12,13,122,9,13,1,14,1,14,1,14,5,14,127,8,
+		14,10,14,12,14,130,9,14,1,15,4,15,133,8,15,11,15,12,15,134,1,16,3,16,138,
+		8,16,1,16,1,16,1,16,1,16,1,16,0,0,17,0,2,4,6,8,10,12,14,16,18,20,22,24,
+		26,28,30,32,0,1,1,0,11,14,148,0,34,1,0,0,0,2,56,1,0,0,0,4,58,1,0,0,0,6,
+		65,1,0,0,0,8,68,1,0,0,0,10,71,1,0,0,0,12,74,1,0,0,0,14,77,1,0,0,0,16,91,
+		1,0,0,0,18,93,1,0,0,0,20,95,1,0,0,0,22,105,1,0,0,0,24,111,1,0,0,0,26,114,
+		1,0,0,0,28,123,1,0,0,0,30,132,1,0,0,0,32,137,1,0,0,0,34,39,3,2,1,0,35,
+		36,5,32,0,0,36,38,3,2,1,0,37,35,1,0,0,0,38,41,1,0,0,0,39,37,1,0,0,0,39,
+		40,1,0,0,0,40,1,1,0,0,0,41,39,1,0,0,0,42,57,3,4,2,0,43,45,3,20,10,0,44,
+		43,1,0,0,0,44,45,1,0,0,0,45,57,1,0,0,0,46,48,3,14,7,0,47,46,1,0,0,0,47,
+		48,1,0,0,0,48,57,1,0,0,0,49,51,3,22,11,0,50,49,1,0,0,0,50,51,1,0,0,0,51,
+		57,1,0,0,0,52,54,3,30,15,0,53,52,1,0,0,0,53,54,1,0,0,0,54,57,1,0,0,0,55,
+		57,3,24,12,0,56,42,1,0,0,0,56,44,1,0,0,0,56,47,1,0,0,0,56,50,1,0,0,0,56,
+		53,1,0,0,0,56,55,1,0,0,0,57,3,1,0,0,0,58,59,5,1,0,0,59,60,3,6,3,0,60,61,
+		3,8,4,0,61,62,3,10,5,0,62,63,3,12,6,0,63,64,3,14,7,0,64,5,1,0,0,0,65,66,
+		5,2,0,0,66,67,5,30,0,0,67,7,1,0,0,0,68,69,5,3,0,0,69,70,5,33,0,0,70,9,
+		1,0,0,0,71,72,5,4,0,0,72,73,5,33,0,0,73,11,1,0,0,0,74,75,5,5,0,0,75,76,
+		5,33,0,0,76,13,1,0,0,0,77,79,5,6,0,0,78,80,3,16,8,0,79,78,1,0,0,0,80,81,
+		1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,15,1,0,0,0,83,84,5,7,0,0,84,92,
+		5,33,0,0,85,86,5,8,0,0,86,92,5,33,0,0,87,88,5,9,0,0,88,92,5,33,0,0,89,
+		90,5,10,0,0,90,92,5,30,0,0,91,83,1,0,0,0,91,85,1,0,0,0,91,87,1,0,0,0,91,
+		89,1,0,0,0,92,17,1,0,0,0,93,94,7,0,0,0,94,19,1,0,0,0,95,96,5,15,0,0,96,
+		99,5,30,0,0,97,98,5,16,0,0,98,100,5,26,0,0,99,97,1,0,0,0,99,100,1,0,0,
+		0,100,103,1,0,0,0,101,102,5,17,0,0,102,104,5,27,0,0,103,101,1,0,0,0,103,
+		104,1,0,0,0,104,21,1,0,0,0,105,106,5,18,0,0,106,107,5,30,0,0,107,23,1,
+		0,0,0,108,110,3,26,13,0,109,108,1,0,0,0,110,113,1,0,0,0,111,109,1,0,0,
+		0,111,112,1,0,0,0,112,25,1,0,0,0,113,111,1,0,0,0,114,115,5,35,0,0,115,
+		120,5,33,0,0,116,119,3,32,16,0,117,119,3,28,14,0,118,116,1,0,0,0,118,117,
+		1,0,0,0,119,122,1,0,0,0,120,118,1,0,0,0,120,121,1,0,0,0,121,27,1,0,0,0,
+		122,120,1,0,0,0,123,124,5,37,0,0,124,128,5,33,0,0,125,127,3,32,16,0,126,
+		125,1,0,0,0,127,130,1,0,0,0,128,126,1,0,0,0,128,129,1,0,0,0,129,29,1,0,
+		0,0,130,128,1,0,0,0,131,133,3,32,16,0,132,131,1,0,0,0,133,134,1,0,0,0,
+		134,132,1,0,0,0,134,135,1,0,0,0,135,31,1,0,0,0,136,138,5,19,0,0,137,136,
+		1,0,0,0,137,138,1,0,0,0,138,139,1,0,0,0,139,140,5,33,0,0,140,141,5,20,
+		0,0,141,142,5,33,0,0,142,33,1,0,0,0,16,39,44,47,50,53,56,81,91,99,103,
+		111,118,120,128,134,137
 	};
 
 	public static readonly ATN _ATN =
