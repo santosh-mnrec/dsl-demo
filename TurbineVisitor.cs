@@ -59,10 +59,11 @@ public class TurbineVisitor : TurbineBaseVisitor<JObject>
             }
         }
 
-        defectObject.Merge(defectBlockObject);
+        defectObject["Turbine"]["Defect"] = defectBlockObject;
 
         return defectObject;
     }
+
 
 
 
